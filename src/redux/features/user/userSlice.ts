@@ -28,6 +28,7 @@ export const userSlice = createSlice({
       state.loading = false;
     },
     fetchUserFail: (state) => {
+      state.currentUser = null;
       state.loading = false;
     },
   },

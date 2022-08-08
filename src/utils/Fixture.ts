@@ -1,6 +1,6 @@
 interface FixtureShape {
-  homeTeam: { name?: string };
-  awayTeam: { name?: string };
+  homeTeam: { name?: string; logo_path?: string; goal?: string };
+  awayTeam: { name?: string; logo_path?: string; goal?: string };
   id: number;
 }
 
@@ -19,18 +19,22 @@ export class Fixture {
 
   constructor(public teams: TableShape[]) {}
 
-  generate(): void {
+  generate(): FixtureShape[][] {
     this.generateHomeFixture();
     this.generateAwayFixture();
 
     this.overallFixture = this.home.concat(this.away);
+
+    return this.overallFixture;
   }
 
-  generateHomeFixture(): void {
+  generateHomeFixture(): FixtureShape[][] {
     this.generateFirstDay(this.teams);
     this.generateRestOfHomeDays();
 
     this.overallFixture = this.home;
+
+    return this.overallFixture;
   }
 
   generateAwayFixture() {

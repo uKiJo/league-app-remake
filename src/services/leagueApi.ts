@@ -1,8 +1,4 @@
-import {
-  createApi,
-  fakeBaseQuery,
-  BaseQueryFn,
-} from '@reduxjs/toolkit/query/react';
+import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 import { db } from '../firebase/firebase';
 import {
   collection,
@@ -14,16 +10,22 @@ import {
 } from 'firebase/firestore';
 
 import { UserProps } from '../redux/features/user/userSlice';
-import { table } from 'console';
 
 interface Team {
   name: string;
+  logo_path?: string;
   points?: number;
 }
 
 interface Game {
-  homeTeam: { name: string; logo_path: string; goal: string };
+  homeTeam: { name: string; logo_path?: string; goal?: string };
   awayTeam: { name: string; logo_path: string; goal: string };
+  id: number;
+}
+
+interface FixtureShape {
+  homeTeam: { name?: string; logo_path?: string; goal?: string };
+  awayTeam: { name?: string; logo_path?: string; goal?: string };
   id: number;
 }
 
@@ -35,9 +37,17 @@ interface TableArgs {
 
 interface FixtureArgs {
   userAuth: UserProps | null;
-  league: string | undefined;
-  fixtureData?: Game[][];
+  league?: string | undefined;
   day?: number;
+  leagueName?: string;
+}
+
+interface FixtureMutationArgs {
+  userAuth: UserProps | null;
+  league?: string | undefined;
+  fixtureData: FixtureShape[][];
+  day?: number;
+  leagueName?: string;
 }
 
 export const leagueApi = createApi({
@@ -122,6 +132,7 @@ export const leagueApi = createApi({
         return { error: 'no user Found:' };
       },
     }),
+
     updateTable: build.mutation<string, TableArgs>({
       async queryFn(data) {
         const { userAuth, league, table } = data;
@@ -155,7 +166,7 @@ export const leagueApi = createApi({
         }
       },
     }),
-    updateFixture: build.mutation<string, FixtureArgs>({
+    updateFixture: build.mutation<string, FixtureMutationArgs>({
       async queryFn(data) {
         // debugger;
         const { userAuth, league, fixtureData, day } = data;
@@ -199,6 +210,79 @@ export const leagueApi = createApi({
         }
       },
     }),
+    addFixture: build.mutation<string, FixtureMutationArgs>({
+      async queryFn(data) {
+        const { userAuth, fixtureData, leagueName } = data;
+        try {
+          if (userAuth) {
+            let existingName = false;
+            const querySnapshot = await getDocs(
+              collection(db, 'users', `${userAuth.uid}`, 'My Leagues')
+            );
+
+            querySnapshot.forEach((doc) => {
+              if (doc.id === leagueName) {
+                existingName = true;
+              }
+            });
+
+            if (existingName) {
+              alert('league name already taken, please choose another name.');
+            } else {
+              await setDoc(
+                doc(
+                  db,
+                  'users',
+                  `${userAuth.uid}`,
+                  'My Leagues',
+                  `${leagueName}`
+                ),
+                { name: leagueName }
+              );
+              if (fixtureData)
+                await fixtureData.map(async (el, index) => {
+                  setDoc(
+                    doc(
+                      db,
+                      'users',
+                      `${userAuth.uid}`,
+                      'My Leagues',
+                      `${leagueName}`,
+                      'fixture collection',
+                      `day: ${index + 1}`
+                    ),
+                    {
+                      id: index + 1,
+                      data: el,
+                    }
+                  );
+                });
+            }
+          }
+          return { data: 'mutated!' };
+        } catch (e) {
+          return { error: e };
+        }
+      },
+      invalidatesTags: ['Table'],
+      async onQueryStarted(
+        { fixtureData, ...data },
+        { dispatch, queryFulfilled }
+      ) {
+        const patchResult = dispatch(
+          leagueApi.util.updateQueryData('fetchFixture', data, (draft) => {
+            console.log(draft, { ...data });
+            Object.assign(draft, fixtureData);
+            // return { table };
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -208,4 +292,5 @@ export const {
   useFetchFixtureQuery,
   useUpdateTableMutation,
   useUpdateFixtureMutation,
+  useAddFixtureMutation,
 } = leagueApi;

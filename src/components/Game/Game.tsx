@@ -29,8 +29,8 @@ interface Team {
 interface FixtureShape {
   homeTeam: {
     name: string;
-    logo_path: string;
-    goal: string;
+    logo_path?: string;
+    goal?: string;
   };
   awayTeam: {
     name: string;
@@ -111,7 +111,9 @@ let Game: React.FC<GameProps> = ({ game, handleHome, handleAway }) => {
       <div className="w-full flex justify-center text-gray-800 flex p-2 border-b-2 border-gray-100 last:border-0">
         <div className="p-2 flex items-center justify-end flex-1">
           <span className="p-2 w-30 text-sm">{converted(homeTeam.name)}</span>
-          <img src={homeTeam.logo_path} alt="home-logo" />
+          {homeTeam.logo_path && (
+            <img src={homeTeam.logo_path} alt="home-logo" />
+          )}
         </div>
         <div className="flex items-center">
           <input
@@ -131,7 +133,9 @@ let Game: React.FC<GameProps> = ({ game, handleHome, handleAway }) => {
           />
         </div>
         <div className="p-2 flex items-center flex-1">
-          <img src={awayTeam.logo_path} alt="away-logo" />
+          {homeTeam.logo_path && (
+            <img src={awayTeam.logo_path} alt="away-logo" />
+          )}
           <span className="p-2 w-30 text-sm">{converted(awayTeam.name)}</span>
         </div>
       </div>

@@ -1,5 +1,5 @@
 export function match(name: string) {
-  return name.match(/[A-Z,a-z]+/g);
+  return name.match(/[A-Z,a-z,0-9]+/g);
 }
 
 export function filterName(name: RegExpMatchArray | null): string[] {

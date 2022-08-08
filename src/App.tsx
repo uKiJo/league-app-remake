@@ -26,10 +26,12 @@ import MyLeagues from './components/MyLeagues/MyLeagues';
 import { divide } from 'ramda';
 
 const App = React.memo(() => {
+  const [currentUser, setCurrentUser] = useState<any>(null);
   let navigate = useNavigate();
   // const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
   const user = useSelector((state: RootState) => state.user.currentUser);
   const loading = useSelector((state: RootState) => state.user.loading);
+
   const dispatch = useDispatch();
 
   console.log(user);
@@ -41,6 +43,7 @@ const App = React.memo(() => {
         const { email, uid } = user;
         const data = { email, uid };
         dispatch(setUser(data));
+        setCurrentUser(user);
         navigate('/');
       } else {
         dispatch(fetchUserFail());

@@ -1,11 +1,8 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../redux/store';
-import {
-  useFetchTableQuery,
-  useUpdateTableMutation,
-} from '../../services/leagueApi';
+import { useFetchTableQuery } from '../../services/leagueApi';
 
 import gsap from 'gsap';
 
@@ -16,11 +13,17 @@ import './Table.scss';
 interface TableProps {}
 
 const Table: React.FC<TableProps> = (props) => {
-  const table = useSelector((state: RootState) => state.table.table);
+  // const table = useSelector((state: RootState) => state.table.table);
   const user = useSelector((state: RootState) => state.user.currentUser);
+
+  const tableRef = useRef(null);
 
   const param = useParams();
   const league = param.leagueId;
+
+  useEffect(() => {
+    gsap.fromTo(tableRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0 });
+  }, []);
 
   const args = {
     userAuth: user,
@@ -45,7 +48,10 @@ const Table: React.FC<TableProps> = (props) => {
       {isSuccess && (
         <>
           <h2>Table</h2>
-          <table className=" bg-white w-full rounded-sm drop-shadow-md p-2">
+          <table
+            ref={tableRef}
+            className=" bg-white w-full rounded-sm drop-shadow-md p-2"
+          >
             <tr>
               <th>Rank</th>
               <th className="team">Team</th>
@@ -56,7 +62,7 @@ const Table: React.FC<TableProps> = (props) => {
                 <th>{data.table.indexOf(team) + 1}</th>
                 <th className="team flex ">
                   <img className="mr-2" src={team.logo_path} alt="logo" />
-                  <span className="font-medium">{team.name}</span>
+                  <span>{team.name}</span>
                 </th>
                 <th>{team.points}</th>
               </tr>

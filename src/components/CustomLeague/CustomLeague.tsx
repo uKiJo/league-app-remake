@@ -9,16 +9,19 @@ import React, {
 import { Fixture } from '../../utils/Fixture';
 import { Table } from '../../utils/Table';
 
+import { useSelector } from 'react-redux';
+
 import NumberInput from './children/NumberInput';
 import Select from './children/Select';
 import TextInput from './children/TextInput';
+import CustomButtom from '../CustomButton/CustomButton';
+
+import { RootState } from '../../redux/store';
 
 import { gsap } from 'gsap';
-import { setFixture } from '../../redux/features/fixture/fixtureSlice';
-import { setTable } from '../../redux/features/table/tableSlice';
-import { storeTeams } from '../../redux/features/teams/teamsSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useAddFixtureMutation } from '../../services/leagueApi';
 
 interface CustomLeagueProps {}
 
@@ -32,22 +35,43 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
   const [inputs, setInputs] = useState<string[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
   const [isOnceOnly, setIsOnceOnly] = useState<boolean>(false);
+  const [leagueName, setLeagueName] = useState<string>('');
   const [warning, setWarning] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
   const errorRef = useRef(null);
+
+  const user = useSelector((state: RootState) => state.user.currentUser);
+
+  const [addFixture] = useAddFixtureMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const generatesub = () => {
+    setLoading(true);
     const fixture = new Fixture(teams);
     const table = new Table(teams);
-    isOnceOnly ? fixture.generateHomeFixture() : fixture.generate();
+    const fixtureData = isOnceOnly
+      ? fixture.generateHomeFixture()
+      : fixture.generate();
+
     table.generate();
 
-    dispatch(setFixture(fixture.overallFixture));
-    dispatch(setTable(table.table));
-    dispatch(storeTeams(teams));
-    navigate('/fix');
+    const args = {
+      userAuth: user,
+      fixtureData: fixtureData,
+      leagueName: leagueName,
+    };
+
+    addFixture(args);
+
+    // dispatch(setFixture(fixture.overallFixture));
+    // dispatch(setTable(table.table));
+    // dispatch(storeTeams(teams));
+    setTimeout(() => {
+      setLoading(false);
+      navigate(`/myleagues/${leagueName}`);
+    }, 2000);
 
     console.log(fixture.overallFixture);
     console.log(table.table);
@@ -56,6 +80,11 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setTeamNum(+value);
+  };
+
+  const handleLeagueNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setLeagueName(value);
   };
 
   const handleTeamsChange = (
@@ -103,7 +132,11 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
     <div className="grid content-center h-full w-full my-10 ">
       <form onSubmit={handleSubmit} className="w-full">
         <div className="m-auto bg-gray-800 p-6 rounded shadow-gray-300 md:w-1/3 sm:w-10/12">
-          <TextInput label="League Name" placeholder="League name" />
+          <TextInput
+            label="League Name"
+            placeholder="League name"
+            handleChange={handleLeagueNameChange}
+          />
           <div className="grid gap-6 grid-cols-2 mt-2 mb-6">
             <div>
               <NumberInput
@@ -128,13 +161,7 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
               handleChange={(event) => handleTeamsChange(index, event)}
             />
           ))}
-
-          <button
-            type="submit"
-            className="bg-blue-500 p-2 mt-5 w-full rounded font-bold text-white hover:bg-blue-400 h-[42px]"
-          >
-            Generate
-          </button>
+          <CustomButtom children="Generate" loading={loading} />
         </div>
       </form>
     </div>
