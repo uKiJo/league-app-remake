@@ -50,6 +50,13 @@ interface FixtureMutationArgs {
   leagueName?: string;
 }
 
+interface LeagueCreator {
+  userAuth: UserProps | null;
+  leagueName: string | undefined;
+  table?: Team[];
+  fixtureData: FixtureShape[][];
+}
+
 export const leagueApi = createApi({
   reducerPath: 'leagueApi',
   baseQuery: fakeBaseQuery(),
@@ -126,7 +133,7 @@ export const leagueApi = createApi({
             data: querySnapshot.docs
               .map((doc) => doc.data())
               .sort((a, b) => a.id - b.id)
-              .map((doc) => doc.data), ///////////HERE!!!!!!!!!
+              .map((doc) => doc.data),
           };
         }
         return { error: 'no user Found:' };
@@ -210,9 +217,9 @@ export const leagueApi = createApi({
         }
       },
     }),
-    addFixture: build.mutation<string, FixtureMutationArgs>({
+    addFixture: build.mutation<string, LeagueCreator>({
       async queryFn(data) {
-        const { userAuth, fixtureData, leagueName } = data;
+        const { userAuth, fixtureData, leagueName, table } = data;
         try {
           if (userAuth) {
             let existingName = false;
@@ -257,6 +264,18 @@ export const leagueApi = createApi({
                     }
                   );
                 });
+              await setDoc(
+                doc(
+                  db,
+                  'users',
+                  `${userAuth.uid}`,
+                  'My Leagues',
+                  `${leagueName}`
+                ),
+                {
+                  table: table,
+                }
+              );
             }
           }
           return { data: 'mutated!' };
@@ -283,6 +302,24 @@ export const leagueApi = createApi({
         }
       },
     }),
+    // addTable: build.mutation<string, TableArgs>({
+    //   async queryFn(data) {
+    //     const { userAuth, league, table } = data;
+    //     try {
+    //       if (userAuth) {
+    //         await setDoc(
+    //           doc(db, 'users', `${userAuth.uid}`, 'My Leagues', `${league}`),
+    //           {
+    //             data: table,
+    //           }
+    //         );
+    //       }
+    //       return { data: 'mutated!' };
+    //     } catch (e) {
+    //       return { error: e };
+    //     }
+    //   },
+    // }),
   }),
 });
 

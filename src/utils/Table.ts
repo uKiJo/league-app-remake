@@ -18,6 +18,7 @@ export class Table {
 
   generate() {
     this.table = this.teams.map((team) => this.addPropsToTable(team));
+    return this.table;
   }
 
   addPropsToTable(team: TeamList): TeamList {

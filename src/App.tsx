@@ -26,7 +26,6 @@ import MyLeagues from './components/MyLeagues/MyLeagues';
 import { divide } from 'ramda';
 
 const App = React.memo(() => {
-  const [currentUser, setCurrentUser] = useState<any>(null);
   let navigate = useNavigate();
   // const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -43,7 +42,6 @@ const App = React.memo(() => {
         const { email, uid } = user;
         const data = { email, uid };
         dispatch(setUser(data));
-        setCurrentUser(user);
         navigate('/');
       } else {
         dispatch(fetchUserFail());
@@ -67,9 +65,6 @@ const App = React.memo(() => {
             <Route path="/" element={<Header currentUser={user} />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="create/custom" element={<CustomLeague />} />
-            {/* <Route path="myleagues" element={<MyLeagues />}>
-              <Route path=":leagueId" element={<h1>OOPS</h1>} />
-            </Route> */}
             <Route path="myleagues" element={<MyLeagues />} />
             <Route path="myleagues/:leagueId" element={<Overview />} />
 

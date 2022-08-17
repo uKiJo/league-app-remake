@@ -63,8 +63,6 @@ const FixtureComponent = () => {
     gsap.fromTo(FixRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0 });
   }, []);
 
-  // isLoading && console.log('loading...');
-
   isSuccess && console.log(data);
   // tableFetched && console.log(table);
 
@@ -167,8 +165,6 @@ const FixtureComponent = () => {
     []
   );
 
-  // console.log(table);
-
   return (
     <>
       {isLoading && (
@@ -181,23 +177,25 @@ const FixtureComponent = () => {
 
       {isSuccess && (
         <>
-          <div ref={FixRef} className="w-full">
+          <div className="w-full">
             <h1>Fixture</h1>
-            {data.map((day) => (
-              <div className="border rounded-sm bg-white drop-shadow-md mb-4 p-2">
-                <h2 className="font-bold text-center">
-                  Day {data.indexOf(day) + 1}
-                </h2>
-                {day.map((game, id) => (
-                  <Game
-                    key={game.id}
-                    game={game}
-                    handleHome={handleHome}
-                    handleAway={handleAway}
-                  />
-                ))}
-              </div>
-            ))}
+            <div ref={FixRef}>
+              {data.map((day) => (
+                <div className="border rounded-sm bg-white drop-shadow-md mb-4 p-2">
+                  <h2 className="font-bold text-center">
+                    Day {data.indexOf(day) + 1}
+                  </h2>
+                  {day.map((game, id) => (
+                    <Game
+                      key={game.id}
+                      game={game}
+                      handleHome={handleHome}
+                      handleAway={handleAway}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </>
       )}

@@ -55,19 +55,17 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
       ? fixture.generateHomeFixture()
       : fixture.generate();
 
-    table.generate();
+    const tableData = table.generate();
 
     const args = {
       userAuth: user,
       fixtureData: fixtureData,
       leagueName: leagueName,
+      table: tableData,
     };
 
     addFixture(args);
 
-    // dispatch(setFixture(fixture.overallFixture));
-    // dispatch(setTable(table.table));
-    // dispatch(storeTeams(teams));
     setTimeout(() => {
       setLoading(false);
       navigate(`/myleagues/${leagueName}`);
@@ -129,7 +127,7 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
   console.log(isOnceOnly);
 
   return (
-    <div className="grid content-center h-full w-full my-10 ">
+    <div className="grid content-center h-screen w-full my-10 ">
       <form onSubmit={handleSubmit} className="w-full">
         <div className="m-auto bg-gray-800 p-6 rounded shadow-gray-300 md:w-1/3 sm:w-10/12">
           <TextInput

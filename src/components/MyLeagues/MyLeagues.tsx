@@ -35,9 +35,20 @@ const MyLeagues: React.FC<MyLeaguesProps> = (props) => {
               <div className="flex items-center p-5 border-b border-gray-200">
                 <h1 className="grow text-lg ml-4  text-gray-500">{league}</h1>
                 <Link to={`/myleagues/${league}`}>
-                  <SimpleButton content="Load" width="24" color="blue" />
+                  <SimpleButton
+                    content="Load"
+                    width="24"
+                    bgColor="bg-blue-500"
+                    hoverColor="hover:bg-blue-600"
+                  />
                 </Link>
-                <SimpleButton content="Remove" width="24" color="red" />
+                <SimpleButton
+                  content="Delete"
+                  width="24"
+                  bgColor="bg-red-500"
+                  hoverColor="hover:bg-red-600"
+                />
+                {/* <SimpleButton content="Remove" width="24" color="red" /> */}
                 {/* <button
                   className={`bg-red-500 p-2 w-24 rounded font-bold text-white hover:bg-red-400 h-[42px] mr-2`}
                 >

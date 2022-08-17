@@ -4,18 +4,20 @@ import classnames from 'classnames';
 interface SimpleButtonProps {
   content: string;
   width: string;
-  color: string;
+  bgColor: string;
+  hoverColor: string;
 }
 
 const SimpleButton: React.FC<SimpleButtonProps> = ({
   content,
   width,
-  color,
+  bgColor,
+  hoverColor,
 }) => {
   return (
     <button
       className={classnames(
-        `bg-${color}-500 p-2 w-${width} rounded-sm font-bold text-white hover:bg-${color}-400 h-[42px] mr-2`
+        `${bgColor} ${hoverColor} p-2 w-${width} rounded-sm font-bold text-white  h-[42px] mr-2`
       )}
     >
       {content}

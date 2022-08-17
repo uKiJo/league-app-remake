@@ -55,16 +55,30 @@ const Table: React.FC<TableProps> = (props) => {
             <tr>
               <th>Rank</th>
               <th className="team">Team</th>
+              <th>Played</th>
+              <th>Won</th>
+              <th>Drawn</th>
+              <th>Lost</th>
+              <th>GF</th>
+              <th>GA</th>
+              <th>GD</th>
               <th>Points</th>
             </tr>
             {data.table.map((team: any) => (
               <tr>
                 <th>{data.table.indexOf(team) + 1}</th>
                 <th className="team flex ">
-                  <img className="mr-2" src={team.logo_path} alt="logo" />
+                  {team.logo_path && <img src={team.logo_path} alt="logo" />}
                   <span>{team.name}</span>
                 </th>
-                <th>{team.points}</th>
+                <th>{team.w + team.d + team.l}</th>
+                <th>{team.w}</th>
+                <th>{team.d}</th>
+                <th>{team.l}</th>
+                <th>{team.goals}</th>
+                <th>{team.ga}</th>
+                <th>{team.goals - team.ga}</th>
+                <th className="font-bold">{team.points}</th>
               </tr>
             ))}
           </table>
