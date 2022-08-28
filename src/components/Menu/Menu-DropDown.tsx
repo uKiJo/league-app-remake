@@ -4,17 +4,20 @@ import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { Link } from 'react-router-dom';
 
-interface MenuProps {}
+interface MenuProps {
+  trigger: string;
+  content: string[];
+}
 
-const MenuDropDown: React.FC<MenuProps> = (props) => {
+const MenuDropDown: React.FC<MenuProps> = ({ trigger, content }) => {
   return (
     <Menu
       as="div"
-      className="relative inline-block text-left hover:bg-gray-700 rounded"
+      className="relative inline-block text-left hover:bg-tertiary rounded"
     >
       <div>
         <Menu.Button className="inline-flex justify-center w-full items-center shadow-sm p-3 text-base font-medium text-white focus:outline-none ">
-          Create League
+          {trigger}
           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
         </Menu.Button>
       </div>
@@ -30,18 +33,23 @@ const MenuDropDown: React.FC<MenuProps> = (props) => {
       >
         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="flex flex-col p-2">
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  to="create/custom"
-                  className={`hover:bg-gray-50 rounded-lg ${active} ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block p-2`}
-                >
-                  Custom
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
+            {content.map((item) => {
+              return (
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link
+                      to={`create/${item.toLocaleLowerCase()}`}
+                      className={`hover:bg-gray-50 rounded-lg ${active} ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'block p-2`}
+                    >
+                      {item}
+                    </Link>
+                  )}
+                </Menu.Item>
+              );
+            })}
+
+            {/* <Menu.Item>
               {({ active }) => (
                 <Link
                   to="create/major"
@@ -51,7 +59,7 @@ const MenuDropDown: React.FC<MenuProps> = (props) => {
                   Major Leagues
                 </Link>
               )}
-            </Menu.Item>
+            </Menu.Item> */}
           </div>
         </Menu.Items>
       </Transition>

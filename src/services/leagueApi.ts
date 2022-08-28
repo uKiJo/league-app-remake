@@ -7,9 +7,14 @@ import {
   getDoc,
   setDoc,
   updateDoc,
+  where,
+  query,
 } from 'firebase/firestore';
 
 import { UserProps } from '../redux/features/user/userSlice';
+import { map } from 'ramda';
+
+// interface League
 
 interface Team {
   name: string;
@@ -80,6 +85,35 @@ export const leagueApi = createApi({
         }
       },
     }),
+    fetchLeaguesData: build.query<any, any>({
+      async queryFn(data) {
+        try {
+          const leaguesData = collection(db, data); //TODO
+
+          const querySnapshot = await getDocs(leaguesData);
+          const major = [
+            'la liga',
+            'ligue 1',
+            'premier league',
+            'serie a',
+            'bundesliga',
+          ];
+
+          const leagueData = major.map((league) => {
+            return querySnapshot.docs
+              .map((doc) => (doc.id === league ? doc.data() : null))
+              .filter((l) => l !== null);
+          });
+
+          return {
+            data: leagueData.flat(),
+          };
+        } catch (e) {
+          return { error: e };
+        }
+      },
+    }),
+
     fetchTable: build.query<any, TableArgs>({
       async queryFn(data) {
         const { userAuth, league } = data;
@@ -302,32 +336,49 @@ export const leagueApi = createApi({
         }
       },
     }),
-    // addTable: build.mutation<string, TableArgs>({
-    //   async queryFn(data) {
-    //     const { userAuth, league, table } = data;
-    //     try {
-    //       if (userAuth) {
-    //         await setDoc(
-    //           doc(db, 'users', `${userAuth.uid}`, 'My Leagues', `${league}`),
-    //           {
-    //             data: table,
-    //           }
-    //         );
-    //       }
-    //       return { data: 'mutated!' };
-    //     } catch (e) {
-    //       return { error: e };
-    //     }
-    //   },
-    // }),
+    addData: build.mutation<string, any>({
+      async queryFn(data) {
+        const { docName, teams } = data;
+        try {
+          await setDoc(doc(db, 'data', docName), {
+            // [docName]: data,
+            teams: teams,
+          });
+          return { data: 'mutated' };
+          // await addDoc(collection(db, "data", docName), {
+          //   data: fetchedData
+          // })
+        } catch (e) {
+          return { error: e };
+        }
+      },
+    }),
+    updateData: build.mutation<string, any>({
+      async queryFn(data) {
+        const { docName, league } = data;
+        try {
+          const leagueData = doc(db, 'data', docName);
+
+          await updateDoc(leagueData, {
+            data: league,
+          });
+          return { data: 'mutated' };
+        } catch (e) {
+          return { error: e };
+        }
+      },
+    }),
   }),
 });
 
 export const {
   useFetchLeaguesQuery,
+  useFetchLeaguesDataQuery,
   useFetchTableQuery,
   useFetchFixtureQuery,
   useUpdateTableMutation,
   useUpdateFixtureMutation,
   useAddFixtureMutation,
+  useAddDataMutation,
+  useUpdateDataMutation,
 } = leagueApi;

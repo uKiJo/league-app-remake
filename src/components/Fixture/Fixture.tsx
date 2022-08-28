@@ -23,6 +23,9 @@ import { TableUpdater } from '../../utils/TableUpdater';
 import Spinner from '../Spinner/Spinner';
 import Game from '../Game/Game';
 
+import './Fixture.scss';
+import Title from '../Title/Title';
+
 interface FixtureShape {
   homeTeam: {
     name?: string;
@@ -178,11 +181,11 @@ const FixtureComponent = () => {
       {isSuccess && (
         <>
           <div className="w-full">
-            <h1>Fixture</h1>
+            <Title content="Fixture" backgroundColor="secondary" icon="icon" />
             <div ref={FixRef}>
               {data.map((day) => (
-                <div className="border rounded-sm bg-white drop-shadow-md mb-4 p-2">
-                  <h2 className="font-bold text-center">
+                <div className="rounded-b-sm bg-white drop-shadow-md mb-4 overflow-hidden">
+                  <h2 className="font-bold text-center bg-primary text-white p-2">
                     Day {data.indexOf(day) + 1}
                   </h2>
                   {day.map((game, id) => (

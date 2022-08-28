@@ -13,12 +13,14 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
   const navigate = useNavigate();
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
+  const list = ['Custom', 'Major'];
+
   console.log(navbarOpen);
 
   return (
-    <div className="lg:flex bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800">
-      <div className="flex lg:flex-grow">
-        <Link className="p-3 flex-grow text-white text-lg font-bold" to="/">
+    <div className="z-10 lg:flex bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-[#002B5B]">
+      <div className="flex ">
+        <Link className="p-3 text-white text-lg font-bold flex-grow" to="/">
           Logo
         </Link>
         <button
@@ -66,18 +68,18 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
         {currentUser && (
           <>
             <Link
-              className="text-white p-3 hover:bg-gray-700 rounded"
+              className="text-white p-3 hover:bg-tertiary rounded"
               to="/myleagues"
             >
               My Leagues
             </Link>
-            <MenuDropDown />
+            <MenuDropDown trigger="Create League" content={list} />
           </>
         )}
 
         {currentUser ? (
           <div
-            className="p-3 text-white cursor-pointer hover:bg-gray-700 rounded"
+            className="p-3 text-white cursor-pointer hover:bg-tertiary rounded"
             onClick={() => {
               signOut(auth);
               navigate('/');
@@ -87,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
           </div>
         ) : (
           <Link
-            className="text-white p-3 hover:bg-gray-700 rounded"
+            className="text-white p-3 hover:bg-btertiaryrounded"
             to="/signin"
           >
             Sign in
@@ -96,7 +98,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
 
         {!currentUser && (
           <Link
-            className="text-white p-3 hover:bg-gray-700 rounded"
+            className="text-white p-3 hover:bg-tertiary rounded"
             to="signup"
           >
             Sign up

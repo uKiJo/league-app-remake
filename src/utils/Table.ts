@@ -38,6 +38,7 @@ export class Table {
       'lArr',
       'p',
       'rank',
+      'rankArr',
     ];
     let isOdd = this.teams.length % 2 === 1;
     let days = isOdd ? this.teams.length * 2 : (this.teams.length - 1) * 2;

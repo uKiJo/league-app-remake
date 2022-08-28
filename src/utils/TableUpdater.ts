@@ -23,8 +23,8 @@ export class TableUpdater {
     });
 
     if (score[0] == 'n' || score[1] == 'n') {
-      const homeGameStats = Array(6).fill(0);
-      const awayGameStats = Array(6).fill(0);
+      const homeGameStats = Array(7).fill(0);
+      const awayGameStats = Array(7).fill(0);
 
       return [homeGameStats, awayGameStats];
     } else {
@@ -47,6 +47,7 @@ export class TableUpdater {
         homeWin,
         homeDraw,
         homeLoss,
+        homePts + (goalFor - goalA) * 0.1 + goalFor * 0.01,
       ];
       const awayGameStats = [
         awayPts,
@@ -55,6 +56,7 @@ export class TableUpdater {
         awayWin,
         awayDraw,
         awayLoss,
+        awayPts + (goalA - goalFor) * 0.1 + goalA * 0.01,
       ];
 
       return [homeGameStats, awayGameStats];
@@ -82,6 +84,7 @@ export class TableUpdater {
       'wArr',
       'dArr',
       'lArr',
+      'rankArr',
     ];
 
     const gameTeams = this.getGameTeams(this.game, table);
@@ -105,7 +108,7 @@ export class TableUpdater {
     const updateHome = this.updateTable(gameTeams[0], table, game[0]);
     const newTable = this.updateTable(gameTeams[1], updateHome, game[1]);
 
-    const sortByPoints = sortBy(prop('points'));
+    const sortByPoints = sortBy(prop('rank'));
     console.log(newTable);
     const sorted = sortByPoints(newTable).reverse();
 

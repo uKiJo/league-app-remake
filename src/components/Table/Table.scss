@@ -1,12 +1,30 @@
 th {
   width: 20px;
+  padding: 15px;
+  font-weight: bold;
+}
+
+td {
+  padding: 15px;
+  text-align: center;
+}
+
+tr {
   padding: 10px;
-  border-bottom: 1px solid #fff;
-  height: 46px;
-  font-weight: normal;
+}
+
+thead {
+  padding: 10px;
 }
 
 .team {
-  width: 300px;
-  text-align: start;
+  width: 250px;
+
+}
+
+.tab-icon {
+  background-image: url('./tableIcon.svg');
+  background-repeat: no-repeat;
+  background-size: 50px;
+  background-position: 10% 50%;
 }

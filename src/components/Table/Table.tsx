@@ -7,6 +7,7 @@ import { useFetchTableQuery } from '../../services/leagueApi';
 import gsap from 'gsap';
 
 import Spinner from '../Spinner/Spinner';
+import Title from '../Title/Title';
 
 import './Table.scss';
 
@@ -47,40 +48,57 @@ const Table: React.FC<TableProps> = (props) => {
 
       {isSuccess && (
         <>
-          <h2>Table</h2>
+          <Title content="Table" backgroundColor="secondary" icon="tab-icon" />
           <table
             ref={tableRef}
-            className=" bg-white w-full rounded-sm drop-shadow-md p-2"
+            className=" overflow-hidden bg-white w-full rounded-b-sm drop-shadow-md p-2"
           >
-            <tr>
-              <th>Rank</th>
-              <th className="team">Team</th>
-              <th>Played</th>
-              <th>Won</th>
-              <th>Drawn</th>
-              <th>Lost</th>
-              <th>GF</th>
-              <th>GA</th>
-              <th>GD</th>
-              <th>Points</th>
-            </tr>
-            {data.table.map((team: any) => (
-              <tr>
-                <th>{data.table.indexOf(team) + 1}</th>
-                <th className="team flex ">
-                  {team.logo_path && <img src={team.logo_path} alt="logo" />}
-                  <span>{team.name}</span>
-                </th>
-                <th>{team.w + team.d + team.l}</th>
-                <th>{team.w}</th>
-                <th>{team.d}</th>
-                <th>{team.l}</th>
-                <th>{team.goals}</th>
-                <th>{team.ga}</th>
-                <th>{team.goals - team.ga}</th>
-                <th className="font-bold">{team.points}</th>
+            <thead className="overflow-hidden font-bold">
+              <tr className="bg-primary text-white text-sm">
+                <th>Rank</th>
+                <th className="team">Team</th>
+                <th>Played</th>
+                <th>Won</th>
+                <th>Drawn</th>
+                <th>Lost</th>
+                <th>GF</th>
+                <th>GA</th>
+                <th>GD</th>
+                <th>Points</th>
               </tr>
-            ))}
+            </thead>
+            <tbody>
+              {data.table.map((team: any, index: number) => (
+                <tr
+                  className={`${
+                    index === 0 || index === 3 || index === 4 || index === 16
+                      ? 'border-b border-slate-300'
+                      : 'border-b border-slate-[#e8e8e8]'
+                  }
+                   text-sm`}
+                >
+                  <td>{data.table.indexOf(team) + 1}</td>
+                  <td className="team flex items-center">
+                    {team.logo_path && (
+                      <img
+                        className="pr-4 h-8"
+                        src={team.logo_path}
+                        alt="logo"
+                      />
+                    )}
+                    <span>{team.name}</span>
+                  </td>
+                  <td>{team.w + team.d + team.l}</td>
+                  <td>{team.w}</td>
+                  <td>{team.d}</td>
+                  <td>{team.l}</td>
+                  <td>{team.goals}</td>
+                  <td>{team.ga}</td>
+                  <td>{team.goals - team.ga}</td>
+                  <td className="font-bold">{team.points}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </>
       )}

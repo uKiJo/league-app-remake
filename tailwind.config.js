@@ -4,7 +4,13 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        bg: "url('/layered-steps.svg')",
+        'hero-pattern': "url('/ddd.svg')",
+      },
+      colors: {
+        primary: '#002B5B',
+        tertiary: '#607EAA',
+        secondary: '#256D85',
+        secondary_light: '#8FE3CF',
       },
     },
   },

@@ -15,6 +15,7 @@ import NumberInput from './children/NumberInput';
 import Select from './children/Select';
 import TextInput from './children/TextInput';
 import CustomButtom from '../CustomButton/CustomButton';
+import Title from '../Title/Title';
 
 import { RootState } from '../../redux/store';
 
@@ -43,8 +44,6 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
   const user = useSelector((state: RootState) => state.user.currentUser);
 
   const [addFixture] = useAddFixtureMutation();
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const generatesub = () => {
@@ -106,7 +105,7 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
 
   useEffect(() => {
     const num: string[] = Array.from({ length: teamNum });
-    num.length < 10 && setInputs(num);
+    num.length <= 10 && setInputs(num);
     num.length < 4 || num.length > 10
       ? setWarning('The team number has to be between 4 and 10')
       : setWarning('');
@@ -127,9 +126,10 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
   console.log(isOnceOnly);
 
   return (
-    <div className="grid content-center h-screen w-full my-10 ">
-      <form onSubmit={handleSubmit} className="w-full">
-        <div className="m-auto bg-gray-800 p-6 rounded shadow-gray-300 md:w-1/3 sm:w-10/12">
+    <div className="bg-slate-100 flex flex-col items-center pt-6 h-screen  ">
+      <form onSubmit={handleSubmit} className="w-1/3">
+        <Title content="Create Custom League" backgroundColor="primary" />
+        <div className="m-auto bg-white p-6 rounded-sm drop-shadow-md">
           <TextInput
             label="League Name"
             placeholder="League name"

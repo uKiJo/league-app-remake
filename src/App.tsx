@@ -4,6 +4,7 @@ import Fixture from './components/Fixture/Fixture';
 import Game from './components/Game/Game';
 import SignIn from './components/SignIn/SignIn';
 import Header from './components/Header/Header';
+import Homepage from './pages/Homepage/Homepage';
 import FixtureComponent from './components/Fixture/Fixture';
 import Overview from './pages/Overview';
 // import { ReactComponent as Spinner } from './components/CustomButton/Spinner.svg';
@@ -23,6 +24,7 @@ import {
 
 import CustomLeague from './components/CustomLeague/CustomLeague';
 import MyLeagues from './components/MyLeagues/MyLeagues';
+import Major from './components/Major/Major';
 import { divide } from 'ramda';
 
 const App = React.memo(() => {
@@ -60,11 +62,13 @@ const App = React.memo(() => {
           <Spinner color="gray" size="12" />
         </div>
       ) : (
-        <div className="App">
+        <div className="App bg-gray-200">
+          <Header currentUser={user} />
           <Routes>
-            <Route path="/" element={<Header currentUser={user} />} />
+            <Route path="/" element={<Homepage />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="create/custom" element={<CustomLeague />} />
+            <Route path="create/major" element={<Major />} />
             <Route path="myleagues" element={<MyLeagues />} />
             <Route path="myleagues/:leagueId" element={<Overview />} />
 

@@ -53,7 +53,7 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="grid place-items-center h-screen">
-      <div className="w-1/4 h-min p-8 m-auto bg-gray-800 rounded ">
+      <div className="w-1/4 h-min p-8 m-auto bg-white drop-shadow-md rounded ">
         <h1 className="pb-5 text-white">Sign in</h1>
 
         <div>

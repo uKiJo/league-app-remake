@@ -20,6 +20,7 @@ export class Fixture {
   constructor(public teams: TableShape[]) {}
 
   generate(): FixtureShape[][] {
+    debugger;
     this.generateHomeFixture();
     this.generateAwayFixture();
 
