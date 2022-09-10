@@ -26,6 +26,9 @@ import Game from '../Game/Game';
 import './Fixture.scss';
 import Title from '../Title/Title';
 
+import { Listbox, Transition } from '@headlessui/react';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+
 interface FixtureShape {
   homeTeam: {
     name?: string;
@@ -45,6 +48,7 @@ const FixtureComponent = () => {
 
   const FixRef = useRef(null);
 
+  const [selectDay, setSelectDay] = useState(1);
   const [homeScore, setHomeScore] = useState<string[]>([]);
   const [awayScore, setAwayScore] = useState<string[]>([]);
 
@@ -72,6 +76,14 @@ const FixtureComponent = () => {
   if (isSuccess) {
     var fixtureUpdater = new FixtureUpdater(data);
   }
+
+  const handleSelectDay = (event: ChangeEvent<HTMLSelectElement>) => {
+    const val = event.target.value;
+    const num = val.replace(/\D/g, '');
+    setSelectDay(+num);
+  };
+
+  console.log(selectDay);
 
   const handleHome = useCallback(
     (event: ChangeEvent<HTMLInputElement>, game: FixtureShape) => {
@@ -180,24 +192,33 @@ const FixtureComponent = () => {
 
       {isSuccess && (
         <>
+          <div className="pb-4">
+            <select onChange={handleSelectDay}>
+              {data.map((day) => (
+                <option>Day {data.indexOf(day) + 1}</option>
+              ))}
+            </select>
+          </div>
           <div className="w-full">
             <Title content="Fixture" backgroundColor="secondary" icon="icon" />
             <div ref={FixRef}>
-              {data.map((day) => (
-                <div className="rounded-b-sm bg-white drop-shadow-md mb-4 overflow-hidden">
-                  <h2 className="font-bold text-center bg-primary text-white p-2">
-                    Day {data.indexOf(day) + 1}
-                  </h2>
-                  {day.map((game, id) => (
-                    <Game
-                      key={game.id}
-                      game={game}
-                      handleHome={handleHome}
-                      handleAway={handleAway}
-                    />
-                  ))}
-                </div>
-              ))}
+              {data
+                .filter((day) => data.indexOf(day) === selectDay - 1)
+                .map((day) => (
+                  <div className="rounded-b-sm bg-white drop-shadow-md mb-4 overflow-hidden">
+                    <h2 className="font-bold text-center bg-primary text-white p-2">
+                      Day {data.indexOf(day) + 1}
+                    </h2>
+                    {day.map((game, id) => (
+                      <Game
+                        key={game.id}
+                        game={game}
+                        handleHome={handleHome}
+                        handleAway={handleAway}
+                      />
+                    ))}
+                  </div>
+                ))}
             </div>
           </div>
         </>
