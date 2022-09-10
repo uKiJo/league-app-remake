@@ -67,7 +67,7 @@ const FixtureComponent = () => {
   }, []);
 
   isSuccess && console.log(data);
-  // tableFetched && console.log(table);
+  tableFetched && console.log(table);
 
   if (isSuccess) {
     var fixtureUpdater = new FixtureUpdater(data);

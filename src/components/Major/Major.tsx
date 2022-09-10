@@ -55,11 +55,6 @@ const Major: React.FC<MajorProps> = (props) => {
 
     const ind = a.findIndex((e) => e === target);
 
-    console.log(ind);
-    // data.map((league: any) =>)
-
-    console.log(data[ind]);
-
     const fixture = new Fixture(data[ind].teams);
     const table = new Table(data[ind].teams);
     const fixtureData = fixture.generate();
@@ -113,29 +108,37 @@ const Major: React.FC<MajorProps> = (props) => {
   return (
     <div className="h-screen flex justify-center mt-6">
       <div className="w-1/3">
-        {isLoading && <div className="text-5xl">LOADING!!!</div>}
+        {isLoading && <div className="text-5xl">LOADING...</div>}
         {isError && 'OOOPS'}
-        {isSuccess &&
-          data.map((league: any) => (
-            <div className="flex bg-primary  m-3 items-center rounded drop-shadow-md pr-4">
-              <div className="w-28 flex justify-center bg-white p-2">
-                <img className="h-20" src={league.data.logo_path} alt="logo" />
-              </div>
+        {isSuccess && (
+          <>
+            <h1 className="text-3xl font-bold ml-3">My leagues</h1>
+            {data.map((league: any) => (
+              <div className="flex bg-primary  m-3 items-center rounded drop-shadow-md pr-4">
+                <div className="w-28 flex justify-center bg-white p-2">
+                  <img
+                    className="h-20"
+                    src={league.data.logo_path}
+                    alt="logo"
+                  />
+                </div>
 
-              <div className="text-3xl font-bold text-secondary_light pl-6 grow">
-                {league.data.name}
-              </div>
+                <div className="text-3xl font-bold text-secondary_light pl-6 grow">
+                  {league.data.name}
+                </div>
 
-              <SimpleButton
-                content="Create"
-                width="28"
-                bgColor="bg-white"
-                hoverColor="hover:bg-secondary_light"
-                textColor="primary"
-                generate={generateSub}
-              />
-            </div>
-          ))}
+                <SimpleButton
+                  content="Create"
+                  width="28"
+                  bgColor="bg-primary"
+                  hoverColor="hover:bg-secondary_light"
+                  textColor="text-white"
+                  generate={generateSub}
+                />
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

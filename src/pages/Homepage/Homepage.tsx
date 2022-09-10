@@ -21,6 +21,7 @@ function Homepage() {
             width="96"
             bgColor="bg-secondary"
             hoverColor="hover:bg-[#8FE3CF]"
+            textColor="text-secondary_light"
           />
         </div>
 

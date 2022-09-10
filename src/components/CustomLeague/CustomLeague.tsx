@@ -20,7 +20,6 @@ import Title from '../Title/Title';
 import { RootState } from '../../redux/store';
 
 import { gsap } from 'gsap';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAddFixtureMutation } from '../../services/leagueApi';
 
@@ -120,8 +119,6 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
 
     console.log(warning);
   }, [teamNum, teams, warning]);
-
-  useEffect(() => {}, []);
 
   console.log(isOnceOnly);
 

@@ -3,6 +3,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { auth } from '../../firebase/firebase';
 import FormInput from '../FormInput/FormInput';
 import CustomButton from '../CustomButton/CustomButton';
+import { Link } from 'react-router-dom';
 
 interface SignInProps {
   email: string;
@@ -52,9 +53,11 @@ const SignIn: React.FC = () => {
   };
 
   return (
-    <div className="grid place-items-center h-screen">
-      <div className="w-1/4 h-min p-8 m-auto bg-white drop-shadow-md rounded ">
-        <h1 className="pb-5 text-white">Sign in</h1>
+    <div className="grid content-start h-screen mt-40">
+      <div className="w-1/4 h-min p-14 m-auto bg-white drop-shadow-md rounded ">
+        <h1 className="pb-5 text-3xl font-bold text-primary">
+          Sign in to your account
+        </h1>
 
         <div>
           <form onSubmit={handleSubmit}>
@@ -75,6 +78,12 @@ const SignIn: React.FC = () => {
             {error && <p className="text-red-500 pb-3">{error}</p>}
             <CustomButton loading={loading} children="Sign in" />
           </form>
+          <div className="mt-4">
+            <span className="pr-2">Don't have an account?</span>
+            <Link className="text-primary" to="/signup">
+              Sign up
+            </Link>
+          </div>
         </div>
       </div>
     </div>
