@@ -17,6 +17,8 @@ import { Fixture } from '../../utils/Fixture';
 import { Table } from '../../utils/Table';
 
 import { entry } from './utils';
+import Spinner from '../Spinner/Spinner';
+import Title from '../Title/Title';
 
 interface Team {
   name: string;
@@ -108,25 +110,61 @@ const Major: React.FC<MajorProps> = (props) => {
   return (
     <div className="h-screen flex justify-center mt-6">
       <div className="w-1/3">
-        {isLoading && <div className="text-5xl">LOADING...</div>}
+        {isLoading && (
+          <div className="flex justify-center items-center h-full">
+            <Spinner color="gray" size="8" />
+          </div>
+        )}
         {isError && 'OOOPS'}
         {isSuccess && (
-          <>
-            <h1 className="text-3xl font-bold ml-3">My leagues</h1>
-            {data.map((league: any) => (
-              <div className="flex bg-primary  m-3 items-center rounded drop-shadow-md pr-4">
-                <div className="w-28 flex justify-center bg-white p-2">
+          // <>
+          //   <h1 className="text-3xl font-bold ml-3">My leagues</h1>
+          //   {data.map((league: any) => (
+          //     <div className="flex bg-primary  m-3 items-center rounded drop-shadow-md pr-4">
+          //       <div className="w-28 flex justify-center bg-white p-2">
+          //         <img
+          //           className="h-20"
+          //           src={league.data.logo_path}
+          //           alt="logo"
+          //         />
+          //       </div>
+
+          //       <div className="text-3xl font-bold text-secondary_light pl-6 grow">
+          //         {league.data.name}
+          //       </div>
+
+          //       <SimpleButton
+          //         content="Create"
+          //         width="28"
+          //         bgColor="bg-primary"
+          //         hoverColor="hover:bg-secondary_light"
+          //         textColor="text-white"
+          //         generate={generateSub}
+          //       />
+          //     </div>
+          //   ))}
+          // </>
+          <div className="w-full text-white rounded-sm drop-shadow-md bg-white">
+            {/* <div className="text-black text-3xl font-bold text-center p-4">
+              Major Leagues
+            </div> */}
+            <Title content="Major Leagues" backgroundColor="primary" />
+            {data.map((league: any, index: number) => (
+              <div
+                className={`flex items-center p-4 ${
+                  index % 2 === 0 ? 'bg-slate-50' : ''
+                }`}
+              >
+                <div className="w-20 flex justify-center  p-2">
                   <img
-                    className="h-20"
+                    className="h-14"
                     src={league.data.logo_path}
                     alt="logo"
                   />
                 </div>
-
-                <div className="text-3xl font-bold text-secondary_light pl-6 grow">
+                <div className="text-xl font-bold text-primary pl-6 grow">
                   {league.data.name}
                 </div>
-
                 <SimpleButton
                   content="Create"
                   width="28"
@@ -137,7 +175,7 @@ const Major: React.FC<MajorProps> = (props) => {
                 />
               </div>
             ))}
-          </>
+          </div>
         )}
       </div>
     </div>

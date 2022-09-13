@@ -25,7 +25,6 @@ import {
 import CustomLeague from './components/CustomLeague/CustomLeague';
 import MyLeagues from './components/MyLeagues/MyLeagues';
 import Major from './components/Major/Major';
-import { divide } from 'ramda';
 
 const App = React.memo(() => {
   let navigate = useNavigate();
@@ -57,7 +56,7 @@ const App = React.memo(() => {
   return (
     <>
       {loading ? (
-        <div className="h-screen grid place-content-center bg-gray-200">
+        <div className="App h-screen grid place-content-center bg-gray-200">
           {/* <Spinner /> */}
           <Spinner color="gray" size="12" />
         </div>

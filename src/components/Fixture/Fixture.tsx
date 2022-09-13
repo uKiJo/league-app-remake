@@ -48,7 +48,7 @@ const FixtureComponent = () => {
 
   const FixRef = useRef(null);
 
-  const [selectDay, setSelectDay] = useState(1);
+  const [selectDay, setSelectDay] = useState(5);
   const [homeScore, setHomeScore] = useState<string[]>([]);
   const [awayScore, setAwayScore] = useState<string[]>([]);
 
@@ -184,7 +184,7 @@ const FixtureComponent = () => {
     <>
       {isLoading && (
         <div className="h-screen grid place-content-center bg-gray-200">
-          <Spinner color="gray" size="12" />
+          <Spinner color="gray" size="8" />
         </div>
       )}
 
