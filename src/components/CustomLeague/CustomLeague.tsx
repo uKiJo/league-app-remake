@@ -42,10 +42,11 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
 
   const user = useSelector((state: RootState) => state.user.currentUser);
 
-  const [addFixture] = useAddFixtureMutation();
+  const [addFixture, { isSuccess, isLoading, isError }] =
+    useAddFixtureMutation();
   const navigate = useNavigate();
 
-  const generatesub = () => {
+  const generateLeague = () => {
     setLoading(true);
     const fixture = new Fixture(teams);
     const table = new Table(teams);
@@ -63,11 +64,6 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
     };
 
     addFixture(args);
-
-    setTimeout(() => {
-      setLoading(false);
-      navigate(`/myleagues/${leagueName}`);
-    }, 2000);
 
     console.log(fixture.overallFixture);
     console.log(table.table);
@@ -99,8 +95,15 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    generatesub();
+    generateLeague();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(`/myleagues/${leagueName}`);
+    }
+    console.log('effetc!');
+  }, [isSuccess]);
 
   useEffect(() => {
     const num: string[] = Array.from({ length: teamNum });
