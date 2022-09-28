@@ -108,7 +108,7 @@ const Major: React.FC<MajorProps> = (props) => {
   // }, []);
 
   return (
-    <div className="h-screen flex justify-center mt-6">
+    <div className="min-h-screen flex justify-center p-6">
       <div className="w-1/3">
         {isLoading && (
           <div className="flex justify-center items-center h-full">

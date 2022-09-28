@@ -111,7 +111,7 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
     num.length < 4 || num.length > 10
       ? setWarning('The team number has to be between 4 and 10')
       : setWarning('');
-
+    console.log(num.length);
     warning
       ? gsap.fromTo(
           errorRef.current,
@@ -126,7 +126,7 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
   console.log(isOnceOnly);
 
   return (
-    <div className="bg-slate-100 flex flex-col items-center pt-6 h-screen  ">
+    <div className="bg-slate-100 flex flex-col items-center p-6 min-h-screen  ">
       <form onSubmit={handleSubmit} className="w-1/3">
         <Title content="Create Custom League" backgroundColor="primary" />
         <div className="m-auto bg-white p-6 rounded-sm drop-shadow-md">
@@ -160,6 +160,8 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
             />
           ))}
           <CustomButtom children="Generate" loading={loading} />
+          {isError && <div>Oops! something went wrong, please retry!</div>}
+          {isLoading && <div>mutating...</div>}
         </div>
       </form>
     </div>
