@@ -13,7 +13,8 @@ interface MyLeaguesProps {}
 const MyLeagues: React.FC<MyLeaguesProps> = (props) => {
   const user = useSelector((state: RootState) => state.user.currentUser);
 
-  const { data, isLoading, error, isSuccess } = useFetchLeaguesQuery(user);
+  const { data, isLoading, isError, error, isSuccess } =
+    useFetchLeaguesQuery(user);
 
   console.log(user);
   console.log(data);
@@ -22,9 +23,10 @@ const MyLeagues: React.FC<MyLeaguesProps> = (props) => {
     <>
       {isLoading && (
         <div className="h-screen grid place-content-center bg-gray-200">
-          <Spinner color="gray" size="12" />
+          <Spinner color="gray" size="8" />
         </div>
       )}
+
       {error && <div>Something went wrong</div>}
       {isSuccess && (
         <div className="py-8 min-h-screen flex flex-col items-center bg-gray-100">
@@ -42,10 +44,6 @@ const MyLeagues: React.FC<MyLeaguesProps> = (props) => {
                   <span className="text-sm text-gray-500">league name</span>
                   <h1 className="grow text-lg  ">{league}</h1>
                 </div>
-                {/* <div className="ml-4 grow">
-                  <span className="text-sm text-gray-500">league type</span>
-                  <h1 className="grow text-lg  ">custom</h1>
-                </div> */}
 
                 <Link className="w-28 mr-4" to={`/myleagues/${league}`}>
                   <SimpleButton

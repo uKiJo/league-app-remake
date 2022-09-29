@@ -180,6 +180,7 @@ const FixtureComponent = () => {
     []
   );
 
+  console.log(isSuccess);
   return (
     <>
       {isLoading && (

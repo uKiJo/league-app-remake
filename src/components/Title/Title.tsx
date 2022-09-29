@@ -11,7 +11,7 @@ const Title: React.FC<TitleProps> = ({ content, backgroundColor, icon }) => {
     <div
       className={`bg-${backgroundColor} w-full m-auto p-4 text-white text-5xl text-center font-bold rounded-t-sm ${icon}`}
     >
-      {content}
+      <span>{content}</span>
     </div>
   );
 };

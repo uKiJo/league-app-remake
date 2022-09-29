@@ -76,9 +76,16 @@ export const leagueApi = createApi({
             `${userAuth.uid}`,
             'My Leagues'
           );
+
           const querySnapshot = await getDocs(myleagues);
           console.log(querySnapshot);
+          console.log(querySnapshot.empty);
           console.log(querySnapshot.docs.map((doc) => doc.id));
+
+          if (querySnapshot.empty) {
+            throw Error('please check your network!');
+          }
+
           return { data: querySnapshot.docs.map((doc) => doc.id) };
         } catch (e) {
           return { error: e };
@@ -128,8 +135,7 @@ export const leagueApi = createApi({
             );
             console.log(table);
             const docSnap = await getDoc(table);
-
-            console.log(docSnap);
+            console.log(docSnap.exists());
             if (docSnap.exists()) {
               console.log('Document data:', docSnap.data());
             } else {
@@ -150,27 +156,36 @@ export const leagueApi = createApi({
       async queryFn(data) {
         const { userAuth, league } = data;
 
-        if (userAuth) {
-          const fixture = collection(
-            db,
-            'users',
-            `${userAuth.uid}`,
-            'My Leagues',
-            `${league}`,
-            'fixture collection'
-          );
+        try {
+          if (userAuth) {
+            const fixture = collection(
+              db,
+              'users',
+              `${userAuth.uid}`,
+              'My Leagues',
+              `${league}`,
+              'fixture collection'
+            );
 
-          const querySnapshot = await getDocs(fixture);
-          console.log(querySnapshot);
+            const querySnapshot = await getDocs(fixture);
+            console.log(querySnapshot);
 
-          return {
-            data: querySnapshot.docs
-              .map((doc) => doc.data())
-              .sort((a, b) => a.id - b.id)
-              .map((doc) => doc.data),
-          };
+            if (querySnapshot.empty) {
+              throw Error('please check your network!');
+            }
+
+            return {
+              data: querySnapshot.docs
+                .map((doc) => doc.data())
+                .sort((a, b) => a.id - b.id)
+                .map((doc) => doc.data),
+            };
+          } else {
+            return {};
+          }
+        } catch (e) {
+          return { error: e };
         }
-        return { error: 'no user Found:' };
       },
     }),
 
