@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Tab } from '@headlessui/react';
 
+import { ErrorBoundary } from '../Shared/ErrorBoundary';
+
 interface TabsProps {
   categories: {
     Fixture: { component: JSX.Element }[];
@@ -35,18 +37,20 @@ const Tabs: React.FC<TabsProps> = ({ categories }) => {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="min-w-[70%]">
-          {Object.values(categories).map((posts, idx) => (
-            <Tab.Panel
-              key={idx}
-              className={classNames(
-                ' rounded-xl p-3',
-                'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none '
-              )}
-            >
-              {posts.map((post) => post.component)}
-            </Tab.Panel>
-          ))}
+        <Tab.Panels className="min-w-[70%] pt-4">
+          <ErrorBoundary>
+            {Object.values(categories).map((posts, idx) => (
+              <Tab.Panel
+                key={idx}
+                className={classNames(
+                  ' rounded-xl p-3',
+                  'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none '
+                )}
+              >
+                {posts.map((post) => post.component)}
+              </Tab.Panel>
+            ))}
+          </ErrorBoundary>
         </Tab.Panels>
       </Tab.Group>
     </div>

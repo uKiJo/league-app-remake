@@ -8,9 +8,7 @@ import Spinner from '../Spinner/Spinner';
 import { Link } from 'react-router-dom';
 import Title from '../Title/Title';
 
-interface MyLeaguesProps {}
-
-const MyLeagues: React.FC<MyLeaguesProps> = (props) => {
+const MyLeagues: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
 
   const { data, isLoading, isError, error, isSuccess } =
@@ -18,6 +16,10 @@ const MyLeagues: React.FC<MyLeaguesProps> = (props) => {
 
   console.log(user);
   console.log(data);
+
+  if (isError) {
+    throw error;
+  }
 
   return (
     <>
@@ -27,7 +29,6 @@ const MyLeagues: React.FC<MyLeaguesProps> = (props) => {
         </div>
       )}
 
-      {error && <div>Something went wrong</div>}
       {isSuccess && (
         <div className="py-8 min-h-screen flex flex-col items-center bg-gray-100">
           <div className="w-1/3">

@@ -60,7 +60,8 @@ const FixtureComponent = () => {
     league: league,
   };
 
-  const { data, isLoading, isError, isSuccess } = useFetchFixtureQuery(args);
+  const { data, isLoading, isError, error, isSuccess } =
+    useFetchFixtureQuery(args);
   const { data: table, isSuccess: tableFetched } = useFetchTableQuery(args);
 
   const [updateTable] = useUpdateTableMutation();
@@ -180,6 +181,10 @@ const FixtureComponent = () => {
     []
   );
 
+  if (isError) {
+    throw error;
+  }
+
   console.log(isSuccess);
   return (
     <>
@@ -188,8 +193,6 @@ const FixtureComponent = () => {
           <Spinner color="gray" size="8" />
         </div>
       )}
-
-      {isError && <div>something went wrong</div>}
 
       {isSuccess && (
         <>

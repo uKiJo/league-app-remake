@@ -7,7 +7,7 @@ import SimpleButton from '../../components/SimpleButton/SimpleButton';
 
 function Homepage() {
   return (
-    <div className="overflow-hidden bg min-h-screen flex justify-center ">
+    <div className="overflow-hidden bg grow flex justify-center ">
       <div className="flex w-1/2 h-96 mt-40">
         <div className="p-4 w-1/2">
           <h1 className="text-secondary grow  text-6xl font-bold mb-8">

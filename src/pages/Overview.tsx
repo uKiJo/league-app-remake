@@ -1,4 +1,3 @@
-import { Tab } from '@headlessui/react';
 import React, { useState } from 'react';
 
 import FixtureComponent from '../components/Fixture/Fixture';

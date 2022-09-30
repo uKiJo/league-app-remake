@@ -25,12 +25,14 @@ import {
 import CustomLeague from './components/CustomLeague/CustomLeague';
 import MyLeagues from './components/MyLeagues/MyLeagues';
 import Major from './components/Major/Major';
+import ErrorBoundary from './components/Shared/ErrorBoundary';
 
 const App = React.memo(() => {
   let navigate = useNavigate();
   // const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
   const user = useSelector((state: RootState) => state.user.currentUser);
   const loading = useSelector((state: RootState) => state.user.loading);
+  // const loading = true;
 
   const dispatch = useDispatch();
 
@@ -57,8 +59,7 @@ const App = React.memo(() => {
     <>
       {loading ? (
         <div className="App h-screen grid place-content-center bg-gray-200">
-          {/* <Spinner /> */}
-          <Spinner color="gray" size="12" />
+          <Spinner color="gray" size="10" />
         </div>
       ) : (
         <div className="App bg-gray-200">
@@ -67,8 +68,22 @@ const App = React.memo(() => {
             <Route path="/" element={<Homepage />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="create/custom" element={<CustomLeague />} />
-            <Route path="create/major" element={<Major />} />
-            <Route path="myleagues" element={<MyLeagues />} />
+            <Route
+              path="create/major"
+              element={
+                <ErrorBoundary>
+                  <Major />
+                </ErrorBoundary>
+              }
+            />
+            <Route
+              path="myleagues"
+              element={
+                <ErrorBoundary>
+                  <MyLeagues />
+                </ErrorBoundary>
+              }
+            />
             <Route path="myleagues/:leagueId" element={<Overview />} />
 
             <Route path="fix" element={<Overview />} />

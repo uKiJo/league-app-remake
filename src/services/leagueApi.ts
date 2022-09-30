@@ -162,7 +162,7 @@ export const leagueApi = createApi({
               db,
               'users',
               `${userAuth.uid}`,
-              'My Leagues',
+              'My Leagues', //TODO
               `${league}`,
               'fixture collection'
             );
