@@ -77,12 +77,6 @@ const FixtureComponent = () => {
     var fixtureUpdater = new FixtureUpdater(data);
   }
 
-  // const handleSelectDay = (event: ChangeEvent<HTMLSelectElement>) => {
-  //   const val = event.target.value;
-  //   const num = val.replace(/\D/g, '');
-  //   setSelectDay(+num);
-  // };
-
   console.log(selectDay);
 
   const handleHome = useCallback(
@@ -201,11 +195,6 @@ const FixtureComponent = () => {
               selectDay={selectDay}
               setSelectDay={setSelectDay}
             />
-            {/* <select onChange={handleSelectDay}>
-              {data.map((day) => (
-                <option>Day {data.indexOf(day) + 1}</option>
-              ))}
-            </select> */}
           </div>
           <div className="w-full">
             <Title content="Fixture" backgroundColor="secondary" icon="icon" />
