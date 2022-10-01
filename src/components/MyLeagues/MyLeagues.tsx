@@ -30,7 +30,7 @@ const MyLeagues: React.FC = () => {
       )}
 
       {isSuccess && (
-        <div className="py-8 min-h-screen flex flex-col items-center bg-gray-100">
+        <div className="py-8 flex flex-col items-center bg-gray-100 grow">
           <div className="w-1/3">
             <Title content="My Leagues" backgroundColor="primary" />
           </div>
@@ -50,7 +50,7 @@ const MyLeagues: React.FC = () => {
                   <SimpleButton
                     content="Load"
                     width="full"
-                    bgColor="bg-primary"
+                    bgColor="bg-secondary"
                     hoverColor="hover:bg-secondary_light"
                     textColor="text-white"
                   />
@@ -60,8 +60,8 @@ const MyLeagues: React.FC = () => {
                   width="28"
                   bgColor="bg-white"
                   hoverColor="hover:bg-slate-100"
-                  textColor="text-primary"
-                  borderColor="border-primary"
+                  textColor="text-secondary"
+                  borderColor="border-secondary"
                   borderWidth="border-2"
                   // icon={<ArrowDownLeftIcon className="w-6" />}
                 />

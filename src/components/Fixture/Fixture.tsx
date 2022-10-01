@@ -26,8 +26,7 @@ import Game from '../Game/Game';
 import './Fixture.scss';
 import Title from '../Title/Title';
 
-import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import Select from '../Shared/Select';
 
 interface FixtureShape {
   homeTeam: {
@@ -48,7 +47,7 @@ const FixtureComponent = () => {
 
   const FixRef = useRef(null);
 
-  const [selectDay, setSelectDay] = useState(5);
+  const [selectDay, setSelectDay] = useState(1);
   const [homeScore, setHomeScore] = useState<string[]>([]);
   const [awayScore, setAwayScore] = useState<string[]>([]);
 
@@ -69,7 +68,7 @@ const FixtureComponent = () => {
 
   useEffect(() => {
     gsap.fromTo(FixRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0 });
-  }, []);
+  }, [selectDay]);
 
   isSuccess && console.log(data);
   tableFetched && console.log(table);
@@ -78,11 +77,11 @@ const FixtureComponent = () => {
     var fixtureUpdater = new FixtureUpdater(data);
   }
 
-  const handleSelectDay = (event: ChangeEvent<HTMLSelectElement>) => {
-    const val = event.target.value;
-    const num = val.replace(/\D/g, '');
-    setSelectDay(+num);
-  };
+  // const handleSelectDay = (event: ChangeEvent<HTMLSelectElement>) => {
+  //   const val = event.target.value;
+  //   const num = val.replace(/\D/g, '');
+  //   setSelectDay(+num);
+  // };
 
   console.log(selectDay);
 
@@ -197,17 +196,24 @@ const FixtureComponent = () => {
       {isSuccess && (
         <>
           <div className="pb-4">
-            <select onChange={handleSelectDay}>
+            <Select
+              items={data.map((day) => `Day ${data.indexOf(day) + 1}`)}
+              selectDay={selectDay}
+              setSelectDay={setSelectDay}
+            />
+            {/* <select onChange={handleSelectDay}>
               {data.map((day) => (
                 <option>Day {data.indexOf(day) + 1}</option>
               ))}
-            </select>
+            </select> */}
           </div>
           <div className="w-full">
             <Title content="Fixture" backgroundColor="secondary" icon="icon" />
             <div ref={FixRef}>
               {data
-                .filter((day) => data.indexOf(day) === selectDay - 1)
+                .filter(
+                  (day) => `Day ${data.indexOf(day) + 1}` === `${selectDay}`
+                )
                 .map((day) => (
                   <div className="rounded-b-sm bg-white drop-shadow-md mb-4 overflow-hidden">
                     <h2 className="font-bold text-center bg-primary text-white p-2">

@@ -79,7 +79,7 @@ const App = React.memo(() => {
             <Route
               path="myleagues"
               element={
-                <ErrorBoundary>
+                <ErrorBoundary key={Math.random()}>
                   <MyLeagues />
                 </ErrorBoundary>
               }

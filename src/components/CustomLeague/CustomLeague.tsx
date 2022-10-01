@@ -126,7 +126,7 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
   console.log(isOnceOnly);
 
   return (
-    <div className="bg-slate-100 flex flex-col items-center p-6 min-h-screen  ">
+    <div className="bg-slate-100 flex flex-col items-center p-6 grow">
       <form onSubmit={handleSubmit} className="w-1/3">
         <Title content="Create Custom League" backgroundColor="primary" />
         <div className="m-auto bg-white p-6 rounded-sm drop-shadow-md">
