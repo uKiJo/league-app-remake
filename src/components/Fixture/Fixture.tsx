@@ -47,7 +47,7 @@ const FixtureComponent = () => {
 
   const FixRef = useRef(null);
 
-  const [selectDay, setSelectDay] = useState(1);
+  const [selectDay, setSelectDay] = useState('Day 1');
   const [homeScore, setHomeScore] = useState<string[]>([]);
   const [awayScore, setAwayScore] = useState<string[]>([]);
 

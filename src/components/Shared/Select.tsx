@@ -17,8 +17,8 @@ import {
 
 interface SelectProps {
   items: string[];
-  selectDay: number;
-  setSelectDay(day: number): void;
+  selectDay: string;
+  setSelectDay(day: string): void;
 }
 
 const Select: React.FC<SelectProps> = ({ items, selectDay, setSelectDay }) => {
@@ -55,7 +55,9 @@ const Select: React.FC<SelectProps> = ({ items, selectDay, setSelectDay }) => {
                   key={personIdx}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                      active
+                        ? 'bg-secondary_light text-secondary'
+                        : 'text-gray-900'
                     }`
                   }
                   value={person}
@@ -70,7 +72,7 @@ const Select: React.FC<SelectProps> = ({ items, selectDay, setSelectDay }) => {
                         {person}
                       </span>
                       {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary">
                           <CheckIcon className="h-5 w-5" aria-hidden="true" />
                         </span>
                       ) : null}
