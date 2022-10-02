@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Tab } from '@headlessui/react';
 
-import { ErrorBoundary } from '../Shared/ErrorBoundary';
-// import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from '../Shared/ErrorFallback';
 
 interface TabsProps {
   categories: {
@@ -39,7 +39,7 @@ const Tabs: React.FC<TabsProps> = ({ categories }) => {
           ))}
         </Tab.List>
         <Tab.Panels className="min-w-[70%] pt-4">
-          <ErrorBoundary key={Math.random()}>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
             {Object.values(categories).map((posts, idx) => (
               <Tab.Panel
                 key={idx}

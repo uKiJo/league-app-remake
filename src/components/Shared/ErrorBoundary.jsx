@@ -5,8 +5,6 @@ import Error404 from './error-404.svg';
 export class ErrorBoundary extends Component {
   state = {
     error: null,
-    defaultImage:
-      'https://media.geeksforgeeks.org/wp-content/uploads/20220608214420/galaryImage5-300x300.png',
   };
 
   static getDerivedStateFromError(error) {

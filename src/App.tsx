@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import Fixture from './components/Fixture/Fixture';
-import Game from './components/Game/Game';
+
 import SignIn from './components/SignIn/SignIn';
 import Header from './components/Header/Header';
 import Homepage from './pages/Homepage/Homepage';
 import FixtureComponent from './components/Fixture/Fixture';
 import Overview from './pages/Overview';
-// import { ReactComponent as Spinner } from './components/CustomButton/Spinner.svg';
+
 import Spinner from './components/Spinner/Spinner';
 
 import { onAuthStateChanged } from 'firebase/auth';
@@ -25,7 +24,9 @@ import {
 import CustomLeague from './components/CustomLeague/CustomLeague';
 import MyLeagues from './components/MyLeagues/MyLeagues';
 import Major from './components/Major/Major';
-import ErrorBoundary from './components/Shared/ErrorBoundary';
+
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from './components/Shared/ErrorFallback';
 
 const App = React.memo(() => {
   let navigate = useNavigate();
@@ -71,7 +72,7 @@ const App = React.memo(() => {
             <Route
               path="create/major"
               element={
-                <ErrorBoundary>
+                <ErrorBoundary FallbackComponent={ErrorFallback}>
                   <Major />
                 </ErrorBoundary>
               }
@@ -79,7 +80,10 @@ const App = React.memo(() => {
             <Route
               path="myleagues"
               element={
-                <ErrorBoundary key={Math.random()}>
+                <ErrorBoundary
+                  key={Math.random()}
+                  FallbackComponent={ErrorFallback}
+                >
                   <MyLeagues />
                 </ErrorBoundary>
               }
