@@ -11,7 +11,7 @@ import Spinner from './components/Spinner/Spinner';
 
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
-import { useNavigate, Route, Routes } from 'react-router-dom';
+import { useNavigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import type { RootState } from './redux/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,10 +30,8 @@ import { ErrorFallback } from './components/Shared/ErrorFallback';
 
 const App = React.memo(() => {
   let navigate = useNavigate();
-  // const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
   const user = useSelector((state: RootState) => state.user.currentUser);
   const loading = useSelector((state: RootState) => state.user.loading);
-  // const loading = true;
 
   const dispatch = useDispatch();
 
@@ -81,8 +79,8 @@ const App = React.memo(() => {
               path="myleagues"
               element={
                 <ErrorBoundary
-                  key={Math.random()}
                   FallbackComponent={ErrorFallback}
+                  resetKeys={[user]}
                 >
                   <MyLeagues />
                 </ErrorBoundary>

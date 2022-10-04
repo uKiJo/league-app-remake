@@ -15,6 +15,7 @@ import SimpleButton from '../SimpleButton/SimpleButton';
 
 import { Fixture } from '../../utils/Fixture';
 import { Table } from '../../utils/Table';
+import DialogComponent from '../Shared/Dialog';
 
 import { entry } from './utils';
 import Spinner from '../Spinner/Spinner';
@@ -28,11 +29,12 @@ interface Team {
 interface MajorProps {}
 
 const Major: React.FC<MajorProps> = (props) => {
-  const [addData] = useAddDataMutation();
-  const [updateData] = useUpdateDataMutation();
+  // const [addData] = useAddDataMutation();
+  // const [updateData] = useUpdateDataMutation();
   const [state, setState] = useState<Team[]>([]);
   // const [teams, setTeams] = useState([]);
   const [leagueName, setLeagueName] = useState<string>('bun');
+  let [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -41,11 +43,19 @@ const Major: React.FC<MajorProps> = (props) => {
 
   isSuccess && console.log(data);
 
-  useEffect(() => {
-    if (isSuccess) {
-      setState(data);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     setState(data);
+  //   }
+  // }, []);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   const [addFixture] = useAddFixtureMutation();
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -117,65 +127,39 @@ const Major: React.FC<MajorProps> = (props) => {
         )}
         {isError && 'OOOPS'}
         {isSuccess && (
-          // <>
-          //   <h1 className="text-3xl font-bold ml-3">My leagues</h1>
-          //   {data.map((league: any) => (
-          //     <div className="flex bg-primary  m-3 items-center rounded drop-shadow-md pr-4">
-          //       <div className="w-28 flex justify-center bg-white p-2">
-          //         <img
-          //           className="h-20"
-          //           src={league.data.logo_path}
-          //           alt="logo"
-          //         />
-          //       </div>
-
-          //       <div className="text-3xl font-bold text-secondary_light pl-6 grow">
-          //         {league.data.name}
-          //       </div>
-
-          //       <SimpleButton
-          //         content="Create"
-          //         width="28"
-          //         bgColor="bg-primary"
-          //         hoverColor="hover:bg-secondary_light"
-          //         textColor="text-white"
-          //         generate={generateSub}
-          //       />
-          //     </div>
-          //   ))}
-          // </>
-          <div className="w-full text-white rounded-sm drop-shadow-md bg-white">
-            {/* <div className="text-black text-3xl font-bold text-center p-4">
-              Major Leagues
-            </div> */}
-            <Title content="Major Leagues" backgroundColor="primary" />
-            {data.map((league: any, index: number) => (
-              <div
-                className={`flex items-center p-4 ${
-                  index % 2 === 0 ? 'bg-slate-50' : ''
-                }`}
-              >
-                <div className="w-20 flex justify-center  p-2">
-                  <img
-                    className="h-14"
-                    src={league.data.logo_path}
-                    alt="logo"
+          <>
+            <div className="w-full text-white rounded-sm drop-shadow-md bg-white">
+              <Title content="Major Leagues" backgroundColor="primary" />
+              {data.map((league: any, index: number) => (
+                <div
+                  className={`flex items-center p-4 ${
+                    index % 2 === 0 ? 'bg-slate-50' : ''
+                  }`}
+                >
+                  <div className="w-20 flex justify-center  p-2">
+                    <img
+                      className="h-14"
+                      src={league.data.logo_path}
+                      alt="logo"
+                    />
+                  </div>
+                  <div className="text-xl font-bold text-primary pl-6 grow">
+                    {league.data.name}
+                  </div>
+                  <SimpleButton
+                    content="Create"
+                    width="28"
+                    bgColor="bg-primary"
+                    hoverColor="hover:bg-secondary_light"
+                    textColor="text-white"
+                    onClick={openModal}
                   />
                 </div>
-                <div className="text-xl font-bold text-primary pl-6 grow">
-                  {league.data.name}
-                </div>
-                <SimpleButton
-                  content="Create"
-                  width="28"
-                  bgColor="bg-primary"
-                  hoverColor="hover:bg-secondary_light"
-                  textColor="text-white"
-                  generate={generateSub}
-                />
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+
+            <DialogComponent isOpen={isOpen} closeModal={closeModal} />
+          </>
         )}
       </div>
     </div>

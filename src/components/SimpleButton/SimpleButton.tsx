@@ -11,6 +11,7 @@ interface SimpleButtonProps {
   borderWidth?: string;
   generate?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   icon?: JSX.Element;
+  onClick?: () => void;
 }
 
 const SimpleButton: React.FC<SimpleButtonProps> = ({
@@ -23,10 +24,11 @@ const SimpleButton: React.FC<SimpleButtonProps> = ({
   borderColor,
   borderWidth,
   generate,
+  onClick,
 }) => {
   return (
     <button
-      onClick={generate}
+      onClick={onClick}
       className={classnames(
         `${bgColor} ${hoverColor} p-2 w-${width} rounded-sm font-bold ${textColor} flex items-center justify-center ${borderColor} ${borderWidth} h-[36px] mr-2 transition-colors	`
       )}
