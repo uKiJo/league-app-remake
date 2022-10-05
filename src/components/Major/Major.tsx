@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ChangeEvent } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -31,10 +31,13 @@ interface MajorProps {}
 const Major: React.FC<MajorProps> = (props) => {
   // const [addData] = useAddDataMutation();
   // const [updateData] = useUpdateDataMutation();
-  const [state, setState] = useState<Team[]>([]);
+
   // const [teams, setTeams] = useState([]);
-  const [leagueName, setLeagueName] = useState<string>('bun');
-  let [isOpen, setIsOpen] = useState(false);
+
+  let [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [leagueIndex, setLeagueIndex] = useState(0);
+
+  const user = useSelector((state: RootState) => state.user.currentUser);
 
   const navigate = useNavigate();
 
@@ -43,79 +46,19 @@ const Major: React.FC<MajorProps> = (props) => {
 
   isSuccess && console.log(data);
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     setState(data);
-  //   }
-  // }, []);
+  const closeModal = () => {
+    setIsDialogOpen(false);
+  };
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  const [addFixture] = useAddFixtureMutation();
-  const user = useSelector((state: RootState) => state.user.currentUser);
-
-  const generateSub = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const openModal = (event: React.MouseEvent<HTMLButtonElement>) => {
     const target = event.currentTarget.parentNode?.children[1].textContent;
 
     const a = ['La Liga', 'Ligue 1', 'Premier League', 'Serie A', 'Bundesliga'];
 
     const ind = a.findIndex((e) => e === target);
-
-    const fixture = new Fixture(data[ind].teams);
-    const table = new Table(data[ind].teams);
-    const fixtureData = fixture.generate();
-
-    const tableData = table.generate();
-
-    const args = {
-      userAuth: user,
-      fixtureData: fixtureData,
-      leagueName: leagueName,
-      table: tableData,
-    };
-
-    addFixture(args);
-
-    // setTimeout(() => {
-    //   // setLoading(false);
-    //   navigate(`/myleagues/${leagueName}`);
-    // }, 2000);
-
-    console.log(fixture.overallFixture);
-    console.log(table.table);
+    setLeagueIndex(ind);
+    setIsDialogOpen(true);
   };
-
-  // isSuccess && console.log(entry(data.id, data.data));
-
-  // console.log(bundesliga, ligue1);
-
-  // useEffect(() => {
-  //   const options = {
-  //     method: 'GET',
-  //     headers: {
-  //       'X-RapidAPI-Key': '787332a01amsh8a19fa466bb37dap10d779jsn9f392e3ac9f0',
-  //       'X-RapidAPI-Host': 'football-pro.p.rapidapi.com',
-  //     },
-  //   };
-
-  //   fetch('https://football-pro.p.rapidapi.com/api/v2.0/leagues/564', options)
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       const arg = {
-  //         docName: 'la liga',
-  //         league: response.data,
-  //       };
-  //       updateData(arg);
-  //     })
-  //     .catch((err) => console.error(err));
-  // }, []);
 
   return (
     <div className="flex justify-center p-6 grow">
@@ -158,7 +101,11 @@ const Major: React.FC<MajorProps> = (props) => {
               ))}
             </div>
 
-            <DialogComponent isOpen={isOpen} closeModal={closeModal} />
+            <DialogComponent
+              isOpen={isDialogOpen}
+              closeModal={closeModal}
+              leagueDetails={data[leagueIndex]}
+            />
           </>
         )}
       </div>

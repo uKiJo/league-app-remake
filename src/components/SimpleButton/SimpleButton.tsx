@@ -11,7 +11,7 @@ interface SimpleButtonProps {
   borderWidth?: string;
   generate?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   icon?: JSX.Element;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const SimpleButton: React.FC<SimpleButtonProps> = ({

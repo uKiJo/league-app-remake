@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 import NumberInput from './children/NumberInput';
 import Select from './children/Select';
-import TextInput from './children/TextInput';
+import TextInput from '../Shared/TextInput';
 import CustomButtom from '../CustomButton/CustomButton';
 import Title from '../Title/Title';
 
@@ -159,7 +159,7 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
               handleChange={(event) => handleTeamsChange(index, event)}
             />
           ))}
-          <CustomButtom children="Generate" loading={loading} />
+          <CustomButtom children="Generate" loading={isLoading} />
           {isError && <div>Oops! something went wrong, please retry!</div>}
           {isLoading && <div>mutating...</div>}
         </div>
