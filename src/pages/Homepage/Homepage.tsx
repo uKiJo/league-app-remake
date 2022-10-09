@@ -18,10 +18,7 @@ function Homepage() {
           </p>
           <SimpleButton
             content="Get Started"
-            width="96"
-            bgColor="bg-secondary"
-            hoverColor="hover:bg-[#8FE3CF]"
-            textColor="text-secondary_light"
+            styling="w-48 bg-secondary text-secondary_light hover:bg-secondary_light hover:text-secondary"
           />
         </div>
 

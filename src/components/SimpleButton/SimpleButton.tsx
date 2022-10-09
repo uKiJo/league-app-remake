@@ -3,11 +3,11 @@ import classnames from 'classnames';
 
 interface SimpleButtonProps {
   content: string | number;
-  width: string;
-  bgColor: string;
-  hoverColor: string;
+  // width: string;
+  // bgColor: string;
+  // hoverColor: string;
   textColor?: string;
-  borderColor?: string;
+  styling?: string;
   borderWidth?: string;
   generate?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   icon?: JSX.Element;
@@ -16,12 +16,12 @@ interface SimpleButtonProps {
 
 const SimpleButton: React.FC<SimpleButtonProps> = ({
   content,
-  width,
-  bgColor,
-  hoverColor,
-  textColor,
+  // width,
+  // bgColor,
+  // hoverColor,
+  // textColor,
   icon,
-  borderColor,
+  styling,
   borderWidth,
   generate,
   onClick,
@@ -30,7 +30,7 @@ const SimpleButton: React.FC<SimpleButtonProps> = ({
     <button
       onClick={onClick}
       className={classnames(
-        `${bgColor} ${hoverColor} p-2 w-${width} rounded-sm font-bold ${textColor} flex items-center justify-center ${borderColor} ${borderWidth} h-[36px] mr-2 transition-colors	`
+        ` p-2 rounded-sm font-bold flex items-center justify-center ${styling} h-[36px] mr-2 transition-colors	`
       )}
     >
       {content || icon}

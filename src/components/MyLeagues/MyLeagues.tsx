@@ -49,20 +49,13 @@ const MyLeagues: React.FC = () => {
                 <Link className="w-28 mr-4" to={`/myleagues/${league}`}>
                   <SimpleButton
                     content="Load"
-                    width="full"
-                    bgColor="bg-secondary"
-                    hoverColor="hover:bg-secondary_light"
-                    textColor="text-secondary"
+                    styling="w-28 bg-secondary text-secondary_light hover:bg-secondary_light hover:text-secondary"
                   />
                 </Link>
                 <SimpleButton
                   content="Delete"
-                  width="28"
-                  bgColor="bg-white"
-                  hoverColor="hover:bg-slate-100"
-                  textColor="text-secondary"
-                  borderColor="border-secondary"
-                  borderWidth="border-2"
+                  styling="w-28 text-secondary border-secondary border-2 hover:bg-slate-200"
+
                   // icon={<ArrowDownLeftIcon className="w-6" />}
                 />
               </div>

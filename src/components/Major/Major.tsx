@@ -91,10 +91,7 @@ const Major: React.FC<MajorProps> = (props) => {
                   </div>
                   <SimpleButton
                     content="Create"
-                    width="28"
-                    bgColor="bg-primary"
-                    hoverColor="hover:bg-secondary_light"
-                    textColor="text-white"
+                    styling="w-48 bg-secondary text-secondary_light hover:bg-secondary_light hover:text-secondary"
                     onClick={openModal}
                   />
                 </div>
