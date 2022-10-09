@@ -20,7 +20,7 @@ import {
 import { FixtureUpdater } from '../../utils/FixtureUpdater';
 import { TableUpdater } from '../../utils/TableUpdater';
 
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../Shared/Spinner/Spinner';
 import Game from '../Game/Game';
 
 import './Fixture.scss';

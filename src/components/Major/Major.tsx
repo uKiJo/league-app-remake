@@ -18,7 +18,7 @@ import { Table } from '../../utils/Table';
 import DialogComponent from '../Shared/Dialog';
 
 import { entry } from './utils';
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../Shared/Spinner/Spinner';
 import Title from '../Title/Title';
 
 interface Team {

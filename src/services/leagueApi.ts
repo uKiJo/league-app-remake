@@ -7,8 +7,7 @@ import {
   getDoc,
   setDoc,
   updateDoc,
-  where,
-  query,
+  deleteDoc,
 } from 'firebase/firestore';
 
 import { UserProps } from '../redux/features/user/userSlice';
@@ -55,17 +54,17 @@ interface FixtureMutationArgs {
   leagueName?: string;
 }
 
-interface LeagueCreator {
+interface League {
   userAuth: UserProps | null;
   leagueName: string | undefined;
   table?: Team[];
-  fixtureData: FixtureShape[][];
+  fixtureData?: FixtureShape[][];
 }
 
 export const leagueApi = createApi({
   reducerPath: 'leagueApi',
   baseQuery: fakeBaseQuery(),
-  tagTypes: ['Table'],
+  tagTypes: ['Table', 'League'],
   endpoints: (build) => ({
     fetchLeagues: build.query({
       async queryFn(userAuth) {
@@ -91,6 +90,7 @@ export const leagueApi = createApi({
           return { error: e };
         }
       },
+      providesTags: ['League'],
     }),
     fetchLeaguesData: build.query<any, any>({
       async queryFn(data) {
@@ -119,6 +119,28 @@ export const leagueApi = createApi({
           return { error: e };
         }
       },
+    }),
+    deleteLeague: build.mutation<string, League>({
+      async queryFn(data) {
+        const { userAuth, leagueName } = data;
+        try {
+          if (userAuth) {
+            const table = doc(
+              db,
+              'users',
+              `${userAuth.uid}`,
+              'My Leagues',
+              `${leagueName}`
+            );
+
+            await deleteDoc(table);
+          }
+          return { data: 'mutated' };
+        } catch (e) {
+          return { error: e };
+        }
+      },
+      invalidatesTags: ['League'],
     }),
 
     fetchTable: build.query<any, TableArgs>({
@@ -266,7 +288,7 @@ export const leagueApi = createApi({
         }
       },
     }),
-    addFixture: build.mutation<string, LeagueCreator>({
+    addFixture: build.mutation<string, League>({
       async queryFn(data) {
         const { userAuth, fixtureData, leagueName, table } = data;
         try {
@@ -332,7 +354,7 @@ export const leagueApi = createApi({
           return { error: e };
         }
       },
-      invalidatesTags: ['Table'],
+      invalidatesTags: ['Table', 'League'],
       async onQueryStarted(
         { fixtureData, ...data },
         { dispatch, queryFulfilled }
@@ -396,4 +418,5 @@ export const {
   useAddFixtureMutation,
   useAddDataMutation,
   useUpdateDataMutation,
+  useDeleteLeagueMutation,
 } = leagueApi;

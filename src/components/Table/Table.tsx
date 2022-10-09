@@ -6,7 +6,7 @@ import { useFetchTableQuery } from '../../services/leagueApi';
 
 import gsap from 'gsap';
 
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../Shared/Spinner/Spinner';
 import Title from '../Title/Title';
 
 import './Table.scss';

@@ -106,7 +106,7 @@ const SignIn: React.FC = () => {
               value={state.password}
             />
             {error && <p className="text-red-500 pb-3">{error}</p>}
-            <CustomButton loading={loading} children="Sign in" />
+            <CustomButton loading={loading} children="Sign in" type="submit" />
           </form>
           <div className="mt-4">
             <span className="pr-2">Don't have an account?</span>

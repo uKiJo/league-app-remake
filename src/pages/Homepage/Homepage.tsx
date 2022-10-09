@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './Homepage.scss';
 
@@ -6,6 +7,7 @@ import illustration from './illustration.svg';
 import SimpleButton from '../../components/SimpleButton/SimpleButton';
 
 function Homepage() {
+  const navigate = useNavigate();
   return (
     <div className="overflow-hidden bg grow flex justify-center ">
       <div className="flex w-1/2 h-96 mt-40">
@@ -19,6 +21,7 @@ function Homepage() {
           <SimpleButton
             content="Get Started"
             styling="w-48 bg-secondary text-secondary_light hover:bg-secondary_light hover:text-secondary"
+            onClick={() => navigate('/create/custom')}
           />
         </div>
 

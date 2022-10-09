@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 interface SimpleButtonProps {
-  content: string | number;
+  content: string | JSX.Element;
   // width: string;
   // bgColor: string;
   // hoverColor: string;

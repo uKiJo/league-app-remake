@@ -7,7 +7,7 @@ import Homepage from './pages/Homepage/Homepage';
 import FixtureComponent from './components/Fixture/Fixture';
 import Overview from './pages/Overview';
 
-import Spinner from './components/Spinner/Spinner';
+import Spinner from './components/Shared/Spinner/Spinner';
 
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/firebase';
