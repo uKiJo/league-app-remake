@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 
 import { pipe } from 'ramda';
-import { match, filterName, trim, stringify } from './utils';
+import { splitString, filter, stringify } from './utils';
 
 interface GameProps {
   game: FixtureShape;
@@ -38,7 +38,7 @@ let Game: React.FC<GameProps> = ({ game, handleHome, handleAway }) => {
 
   const { homeTeam, awayTeam } = game;
 
-  const converted = pipe(match, filterName, trim, stringify);
+  const converted = pipe(splitString, filter, stringify);
 
   return (
     <>

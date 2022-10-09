@@ -29,7 +29,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from './components/Shared/ErrorFallback';
 
 const App = React.memo(() => {
-  let navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user.currentUser);
   const loading = useSelector((state: RootState) => state.user.loading);
 
@@ -44,7 +43,6 @@ const App = React.memo(() => {
         const { email, uid } = user;
         const data = { email, uid };
         dispatch(setUser(data));
-        navigate('/');
       } else {
         dispatch(fetchUserFail());
         console.log('no user logged in');

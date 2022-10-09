@@ -1,6 +1,17 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { auth } from '../../firebase/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+
+import { useNavigate } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import {
+  fetchUserStart,
+  setUser,
+  fetchUserFail,
+} from '../../redux/features/user/userSlice';
+
 import FormInput from '../FormInput/FormInput';
 import CustomButton from '../CustomButton/CustomButton';
 import { Link } from 'react-router-dom';
@@ -20,6 +31,25 @@ const SignIn: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   dispatch(fetchUserStart());
+  //   const unsubscribeFromAuth = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       const { email, uid } = user;
+  //       const data = { email, uid };
+  //       dispatch(setUser(data));
+  //       navigate('/');
+  //     } else {
+  //       dispatch(fetchUserFail());
+  //       console.log('no user logged in');
+  //     }
+  //   });
+
+  //   return () => unsubscribeFromAuth();
+  // }, [dispatch]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -44,7 +74,7 @@ const SignIn: React.FC = () => {
         email: '',
         password: '',
       });
-
+      navigate('/');
       console.log(`user signed in`);
     } catch {
       setError('Something went wrong, please try again!');

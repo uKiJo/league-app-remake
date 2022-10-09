@@ -5,8 +5,6 @@ import { useFetchLeaguesQuery } from '../../services/leagueApi';
 import SimpleButton from '../SimpleButton/SimpleButton';
 import Spinner from '../Spinner/Spinner';
 
-import { useReload } from '../../hooks/useReload';
-
 import { Link } from 'react-router-dom';
 import Title from '../Title/Title';
 
@@ -18,8 +16,6 @@ const MyLeagues: React.FC = () => {
 
   console.log(user);
   console.log(data);
-
-  useReload();
 
   if (isError) {
     throw error;
@@ -56,7 +52,7 @@ const MyLeagues: React.FC = () => {
                     width="full"
                     bgColor="bg-secondary"
                     hoverColor="hover:bg-secondary_light"
-                    textColor="text-white"
+                    textColor="text-secondary"
                   />
                 </Link>
                 <SimpleButton
