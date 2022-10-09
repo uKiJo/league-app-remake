@@ -3,27 +3,15 @@ import classnames from 'classnames';
 
 interface SimpleButtonProps {
   content: string | JSX.Element;
-  // width: string;
-  // bgColor: string;
-  // hoverColor: string;
-  textColor?: string;
   styling?: string;
-  borderWidth?: string;
-  generate?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   icon?: JSX.Element;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const SimpleButton: React.FC<SimpleButtonProps> = ({
   content,
-  // width,
-  // bgColor,
-  // hoverColor,
-  // textColor,
   icon,
   styling,
-  borderWidth,
-  generate,
   onClick,
 }) => {
   return (

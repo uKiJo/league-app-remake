@@ -6,6 +6,7 @@ interface CustomButtonProps {
   loading?: boolean;
   children?: string;
   type?: 'submit' | 'button' | 'reset';
+  styling?: string;
   action?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -13,12 +14,13 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   loading,
   children,
   type,
+  styling,
   action,
 }) => {
   return (
     <button
       type={type}
-      className="flex justify-center items-center w-full text-secondary_light bg-secondary hover:bg-secondary p-3 rounded font-medium h-10 mt-4"
+      className={`flex justify-center items-center p-2 rounded-sm font-medium h-[36px] transition-colors ${styling}`}
       onClick={action}
     >
       {loading ? <Spinner /> : children}

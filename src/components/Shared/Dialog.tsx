@@ -135,6 +135,7 @@ const DialogComponent: React.FC<DialogProps> = ({
                       <CustomButton
                         children="Create League"
                         loading={isLoading}
+                        styling="w-full bg-secondary text-secondary_light"
                       />
                     </div>
                   </form>

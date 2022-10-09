@@ -88,6 +88,7 @@ const MyLeagues: React.FC = () => {
                   loading={index === ind && true}
                   children="Delete"
                   type="button"
+                  styling="w-28  bg-red-500 text-white hover:bg-slate-200"
                   action={() => handleDeleteLeague(index)}
                 />
               </div>

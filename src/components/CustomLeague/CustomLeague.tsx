@@ -159,7 +159,11 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
               handleChange={(event) => handleTeamsChange(index, event)}
             />
           ))}
-          <CustomButtom children="Generate" loading={isLoading} />
+          <CustomButtom
+            children="Generate"
+            loading={isLoading}
+            styling="w-full bg-secondary text-secondary_light"
+          />
           {isError && <div>Oops! something went wrong, please retry!</div>}
           {isLoading && <div>mutating...</div>}
         </div>
