@@ -15,7 +15,7 @@ import NumberInput from './children/NumberInput';
 import Select from './children/Select';
 import TextInput from '../Shared/TextInput';
 import CustomButtom from '../CustomButton/CustomButton';
-import Title from '../Title/Title';
+import Title from '../Shared/Title/Title';
 
 import { RootState } from '../../redux/store';
 
@@ -128,8 +128,8 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
   return (
     <div className="bg-slate-100 flex flex-col items-center p-6 grow">
       <form onSubmit={handleSubmit} className="w-1/3">
-        <Title content="Create Custom League" backgroundColor="primary" />
         <div className="m-auto bg-white p-6 rounded-sm drop-shadow-md">
+          <Title content="Create Custom League" styling="mb-6" />
           <TextInput
             label="League Name"
             placeholder="League name"

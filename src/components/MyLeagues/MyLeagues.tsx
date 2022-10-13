@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../redux/store';
 import {
@@ -9,36 +9,62 @@ import SimpleButton from '../SimpleButton/SimpleButton';
 import Spinner from '../Shared/Spinner/Spinner';
 
 import { Link } from 'react-router-dom';
-import Title from '../Title/Title';
+import Title from '../Shared/Title/Title';
 import CustomButton from '../CustomButton/CustomButton';
+import DeleteDialog from '../DeleteDialog/DeleteDialog';
 
 const MyLeagues: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
-  const [ind, setInd] = useState<boolean | number>(false);
+  const [ind, setInd] = useState<number>(0);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { data, isLoading, isError, error, isSuccess } =
-    useFetchLeaguesQuery(user);
+  const {
+    data = [],
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+  } = useFetchLeaguesQuery(user);
 
   const [
     deleteLeague,
     { isSuccess: deletionSuccess, isLoading: deletionLoading },
   ] = useDeleteLeagueMutation();
 
-  console.log(user);
-  console.log(data);
-
-  const handleDeleteLeague = (index: number) => {
+  const openDialog = (index: number) => {
+    setIsDialogOpen(true);
     setInd(index);
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleDeleteLeague = () => {
     if (data) {
       const args = {
         userAuth: user,
-        leagueName: data[index],
+        leagueName: data[ind],
       };
 
-      console.log(index);
+      console.log(ind);
 
       deleteLeague(args);
     }
+  };
+
+  const handleClick = () => {
+    handleDeleteLeague();
+    if (deletionSuccess) {
+      closeDialog();
+    }
+  };
+
+  const deleteDialogProps = {
+    action: handleClick,
+    isOpen: isDialogOpen,
+    closeDialog: closeDialog,
+    loading: deletionLoading,
   };
 
   if (isError) {
@@ -55,44 +81,56 @@ const MyLeagues: React.FC = () => {
 
       {isSuccess && (
         <div className="py-8 flex flex-col items-center bg-gray-100 grow">
-          <div className="w-1/3">
-            <Title content="My Leagues" backgroundColor="primary" />
-          </div>
-          <div className="w-1/3 bg-white rounded-sm drop-shadow-md">
-            {data.map((league, index) => (
-              <div
-                key={index}
-                className={`flex items-center p-4 ${
-                  index % 2 === 0 ? 'bg-slate-50' : ''
-                }`}
-              >
-                <div className="ml-4 grow">
-                  <span className="text-sm text-gray-500">league name</span>
-                  <h1 className="grow text-lg  ">{league}</h1>
-                </div>
+          <div
+            className={`flex flex-col w-[520px] bg-white rounded border-stroke border ${
+              data.length ? '' : 'h-[500px]'
+            } `}
+          >
+            <Title content="My Leagues" styling="p-6" />
 
-                <Link className="w-28 mr-4" to={`/myleagues/${league}`}>
-                  <SimpleButton
-                    content="Load"
-                    styling="w-28 bg-secondary text-secondary_light hover:bg-secondary_light hover:text-secondary"
-                  />
-                </Link>
-                {/* <SimpleButton
-                  content="delete"
-                  styling="w-28 text-secondary border-secondary border-2 hover:bg-slate-200"
-                  onClick={handleDeleteLeague}
+            <div className="p-6 grow flex items-center">
+              <div className="flex justify-center items-center grow">
+                {data.length === 0 ? (
+                  <h1 className="text-2xl font-bold text-dark-grey w-96">
+                    You don’t have any league yet! go ahead and create your own
+                    right now.
+                  </h1>
+                ) : (
+                  <div className="w-full bg-white rounded-sm border border-stroke">
+                    {data.map((league, index) => (
+                      <div
+                        key={index}
+                        className={`flex items-center p-4  ${
+                          index % 2 === 0 ? 'bg-slate-50' : ''
+                        }`}
+                      >
+                        <div className="ml-4 grow">
+                          <span className="text-sm text-gray-500">
+                            league name
+                          </span>
+                          <h1 className="grow text-lg  ">{league}</h1>
+                        </div>
 
-                  // icon={<ArrowDownLeftIcon className="w-6" />}
-                /> */}
-                <CustomButton
-                  loading={index === ind && true}
-                  children="Delete"
-                  type="button"
-                  styling="w-28  bg-red-500 text-white hover:bg-slate-200"
-                  action={() => handleDeleteLeague(index)}
-                />
+                        <Link className="w-28" to={`/myleagues/${league}`}>
+                          <SimpleButton
+                            content="Load"
+                            styling="w-24 bg-primary text-white"
+                          />
+                        </Link>
+
+                        <CustomButton
+                          children="Delete"
+                          type="button"
+                          styling="w-24 bg-red-500 text-white hover:contrast-75 transition-all"
+                          action={() => openDialog(index)}
+                        />
+                        <DeleteDialog {...deleteDialogProps} />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       )}

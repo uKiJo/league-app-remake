@@ -7,7 +7,7 @@ import { useFetchTableQuery } from '../../services/leagueApi';
 import gsap from 'gsap';
 
 import Spinner from '../Shared/Spinner/Spinner';
-import Title from '../Title/Title';
+import Title from '../Shared/Title/Title';
 
 import './Table.scss';
 
@@ -48,7 +48,7 @@ const Table: React.FC<TableProps> = (props) => {
 
       {isSuccess && (
         <>
-          <Title content="Table" backgroundColor="secondary" icon="tab-icon" />
+          <Title content="Table" styling="secondary" icon="tab-icon" />
           <table
             ref={tableRef}
             className=" overflow-hidden bg-white w-full rounded-b-sm drop-shadow-md p-2"

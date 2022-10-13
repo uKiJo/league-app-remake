@@ -19,7 +19,7 @@ import DialogComponent from '../Shared/Dialog';
 
 import { entry } from './utils';
 import Spinner from '../Shared/Spinner/Spinner';
-import Title from '../Title/Title';
+import Title from '../Shared/Title/Title';
 
 interface Team {
   name: string;
@@ -34,7 +34,7 @@ const Major: React.FC<MajorProps> = (props) => {
 
   // const [teams, setTeams] = useState([]);
 
-  let [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [leagueIndex, setLeagueIndex] = useState(0);
 
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -72,7 +72,8 @@ const Major: React.FC<MajorProps> = (props) => {
         {isSuccess && (
           <>
             <div className="w-full text-white rounded-sm drop-shadow-md bg-white">
-              <Title content="Major Leagues" backgroundColor="primary" />
+              <Title content="Major Leagues" styling="p-6" />
+
               {data.map((league: any, index: number) => (
                 <div
                   className={`flex items-center p-4 ${
@@ -91,7 +92,7 @@ const Major: React.FC<MajorProps> = (props) => {
                   </div>
                   <SimpleButton
                     content="Create"
-                    styling="w-48 bg-secondary text-secondary_light hover:bg-secondary_light hover:text-secondary"
+                    styling="w-40 bg-secondary text-secondary_light hover:bg-secondary_light hover:text-secondary"
                     onClick={openModal}
                   />
                 </div>

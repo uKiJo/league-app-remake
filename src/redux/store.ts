@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+// import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 import userReducer from './features/user/userSlice';
 import fixtureReducer from './features/fixture/fixtureSlice';

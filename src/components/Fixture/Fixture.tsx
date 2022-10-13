@@ -24,7 +24,7 @@ import Spinner from '../Shared/Spinner/Spinner';
 import Game from '../Game/Game';
 
 import './Fixture.scss';
-import Title from '../Title/Title';
+import Title from '../Shared/Title/Title';
 
 import Select from '../Shared/Select';
 
@@ -77,54 +77,58 @@ const FixtureComponent = () => {
     var fixtureUpdater = new FixtureUpdater(data);
   }
 
-  console.log(selectDay);
+  console.log('home', homeScore);
+  console.log('away', awayScore);
 
-  const handleHome = useCallback(
-    (event: ChangeEvent<HTMLInputElement>, game: FixtureShape) => {
-      const tableUpdater = new TableUpdater(game);
-      const { value } = event.target;
-      const arr = homeScore;
+  const handleHome = (
+    event: ChangeEvent<HTMLInputElement>,
+    game: FixtureShape
+  ) => {
+    const tableUpdater = new TableUpdater(game);
 
-      arr[game.id] = value;
-      setHomeScore(arr);
+    const { value } = event.target;
+    const arr = homeScore;
 
-      const home = value;
-      console.log(awayScore);
-      const awayGoal = game.awayTeam.goal || awayScore[game.id];
+    arr[game.id] = value;
+    setHomeScore(arr);
 
-      if (awayGoal && tableFetched && isSuccess) {
-        debugger;
-        const scoreStr = `${home}-${awayGoal}`;
-        const dayIdx = fixtureUpdater.getDayIdx(game);
-        const updatedTable = tableUpdater.updatePropArray(
-          table.table,
-          dayIdx,
-          scoreStr
-        );
-        const updatedFixture = fixtureUpdater.update(game, scoreStr);
+    const home = value;
+    console.log(awayScore);
+    const awayGoal = game.awayTeam.goal || awayScore[game.id];
+    console.log(awayGoal, data, table);
 
-        const args = {
-          userAuth: user,
-          league: league,
-          table: updatedTable,
-        };
+    if (awayGoal && data && table) {
+      // var fixtureUpdater = new FixtureUpdater(data);
+      // debugger;
+      const scoreStr = `${home}-${awayGoal}`;
+      const dayIdx = fixtureUpdater.getDayIdx(game);
+      const updatedTable = tableUpdater.updatePropArray(
+        table.table,
+        dayIdx,
+        scoreStr
+      );
+      const updatedFixture = fixtureUpdater.update(game, scoreStr);
 
-        const FixArgs = {
-          userAuth: user,
-          league: league,
-          fixtureData: updatedFixture,
-          day: dayIdx,
-        };
+      const args = {
+        userAuth: user,
+        league: league,
+        table: updatedTable,
+      };
 
-        updateTable(args);
-        updateFixture(FixArgs);
+      const FixArgs = {
+        userAuth: user,
+        league: league,
+        fixtureData: updatedFixture,
+        day: dayIdx,
+      };
 
-        console.log('UPDATED fixture', updatedFixture);
-        console.log('UPDATED TABLE', updatedTable);
-      }
-    },
-    []
-  );
+      updateTable(args);
+      updateFixture(FixArgs);
+
+      console.log('UPDATED fixture', updatedFixture);
+      console.log('UPDATED TABLE', updatedTable);
+    }
+  };
 
   const handleAway = useCallback(
     (event: ChangeEvent<HTMLInputElement>, game: FixtureShape) => {
@@ -141,7 +145,10 @@ const FixtureComponent = () => {
       const homeGoal = game.homeTeam.goal || homeScore[game.id];
       console.log(homeGoal);
 
-      if (homeGoal && tableFetched && isSuccess) {
+      console.log(homeGoal, table, data);
+
+      if (homeGoal && data && table) {
+        // var fixtureUpdater = new FixtureUpdater(data);
         console.log(table);
         const scoreStr = `${homeGoal}-${away}`;
         const dayIdx = fixtureUpdater.getDayIdx(game);
@@ -169,6 +176,7 @@ const FixtureComponent = () => {
         updateTable(args);
         updateFixture(FixArgs);
         console.log('UPDATED TABLE', updatedTable);
+        console.log('statement ran');
       }
     },
     []
@@ -178,7 +186,7 @@ const FixtureComponent = () => {
     throw error;
   }
 
-  console.log(isSuccess);
+  console.log(isSuccess, tableFetched);
   return (
     <>
       {isLoading && (
@@ -187,7 +195,7 @@ const FixtureComponent = () => {
         </div>
       )}
 
-      {isSuccess && (
+      {isSuccess && tableFetched && (
         <>
           <div className="pb-4">
             <Select
@@ -197,14 +205,17 @@ const FixtureComponent = () => {
             />
           </div>
           <div className="w-full">
-            <Title content="Fixture" backgroundColor="secondary" icon="icon" />
+            <Title content="Fixture" styling="p-6" icon="icon" />
             <div ref={FixRef}>
               {data
                 .filter(
                   (day) => `Day ${data.indexOf(day) + 1}` === `${selectDay}`
                 )
-                .map((day) => (
-                  <div className="rounded-b-sm bg-white drop-shadow-md mb-4 overflow-hidden">
+                .map((day, ind) => (
+                  <div
+                    key={ind}
+                    className="rounded-b-sm bg-white drop-shadow-md mb-4 overflow-hidden"
+                  >
                     <h2 className="font-bold text-center bg-primary text-white p-2">
                       Day {data.indexOf(day) + 1}
                     </h2>

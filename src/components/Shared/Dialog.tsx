@@ -17,9 +17,6 @@ import { Fixture } from '../../utils/Fixture';
 import { Table } from '../../utils/Table';
 import { useNavigate } from 'react-router-dom';
 
-// interface LeagueDetails {
-//   data;
-
 interface DataDetails {
   data: {
     logo_path: string;

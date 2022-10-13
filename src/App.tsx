@@ -55,8 +55,8 @@ const App = React.memo(() => {
   return (
     <>
       {loading ? (
-        <div className="App h-screen grid place-content-center bg-gray-200">
-          <Spinner color="gray" size="10" />
+        <div className="App h-screen flex justify-center items-center bg-gray-200">
+          <Spinner color="gray" size="8" />
         </div>
       ) : (
         <div className="App bg-gray-200">

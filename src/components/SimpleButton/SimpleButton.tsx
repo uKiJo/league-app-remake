@@ -18,7 +18,7 @@ const SimpleButton: React.FC<SimpleButtonProps> = ({
     <button
       onClick={onClick}
       className={classnames(
-        ` p-2 rounded-sm font-bold flex items-center justify-center ${styling} h-[36px] mr-2 transition-colors	`
+        ` p-2 rounded font-bold flex items-center justify-center ${styling} h-[40px] mr-2 transition-colors	`
       )}
     >
       {content || icon}

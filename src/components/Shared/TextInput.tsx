@@ -23,7 +23,7 @@ const TextInput: React.FC<TextInputProps> = ({
         onChange={handleChange}
         type="text"
         id="first_name"
-        className="bg-slate-100 border-0 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+        className="bg-slate-100 border-0 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-primary block w-full p-2.5 "
         // placeholder="League Name"
         {...rest}
         required

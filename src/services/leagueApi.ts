@@ -11,7 +11,6 @@ import {
 } from 'firebase/firestore';
 
 import { UserProps } from '../redux/features/user/userSlice';
-import { map } from 'ramda';
 
 // interface League
 
@@ -64,6 +63,7 @@ interface League {
 export const leagueApi = createApi({
   reducerPath: 'leagueApi',
   baseQuery: fakeBaseQuery(),
+  refetchOnReconnect: true,
   tagTypes: ['Table', 'League'],
   endpoints: (build) => ({
     fetchLeagues: build.query({
@@ -81,9 +81,9 @@ export const leagueApi = createApi({
           console.log(querySnapshot.empty);
           console.log(querySnapshot.docs.map((doc) => doc.id));
 
-          if (querySnapshot.empty) {
-            throw Error('please check your network!');
-          }
+          // if (querySnapshot.empty) {
+          //   throw Error('please check your network!');
+          // }
 
           return { data: querySnapshot.docs.map((doc) => doc.id) };
         } catch (e) {
