@@ -14,6 +14,7 @@ import CustomButton from '../CustomButton/CustomButton';
 import DeleteDialog from '../DeleteDialog/DeleteDialog';
 import ListContainer from '../Shared/ListContainer/ListContainer';
 import List from '../Shared/List/List';
+import ListItem from '../Shared/ListItem/ListItem';
 
 const MyLeagues: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -98,36 +99,33 @@ const MyLeagues: React.FC = () => {
                 <List>
                   <>
                     {data.map((league, index) => (
-                      <div
-                        key={index}
-                        className={`flex items-center p-4  ${
-                          index % 2 === 0 ? 'bg-slate-50' : ''
-                        }`}
-                      >
-                        <div className="ml-4 grow">
-                          <span className="text-sm text-gray-500">
-                            league name
-                          </span>
-                          <h1 className="grow text-lg text-dark-grey">
-                            {league}
-                          </h1>
-                        </div>
+                      <ListItem key={index} index={index}>
+                        <>
+                          <div className="ml-4 grow">
+                            <span className="text-sm text-gray-500">
+                              league name
+                            </span>
+                            <h1 className="grow text-lg text-dark-grey">
+                              {league}
+                            </h1>
+                          </div>
 
-                        <Link className="w-28" to={`/myleagues/${league}`}>
-                          <SimpleButton
-                            content="Load"
-                            styling="w-24 bg-primary text-white"
+                          <Link className="w-28" to={`/myleagues/${league}`}>
+                            <SimpleButton
+                              content="Load"
+                              styling="w-24 bg-primary text-white"
+                            />
+                          </Link>
+
+                          <CustomButton
+                            children="Delete"
+                            type="button"
+                            styling="w-24 bg-red-500 text-white hover:contrast-75 transition-all"
+                            action={() => openDialog(index)}
                           />
-                        </Link>
-
-                        <CustomButton
-                          children="Delete"
-                          type="button"
-                          styling="w-24 bg-red-500 text-white hover:contrast-75 transition-all"
-                          action={() => openDialog(index)}
-                        />
-                        <DeleteDialog {...deleteDialogProps} />
-                      </div>
+                          <DeleteDialog {...deleteDialogProps} />
+                        </>
+                      </ListItem>
                     ))}
                   </>
                 </List>
