@@ -62,18 +62,18 @@ const Major: React.FC<MajorProps> = (props) => {
 
   return (
     <div className="flex justify-center p-6 grow">
-      <div className="w-1/3">
-        {isLoading && (
-          <div className="flex justify-center items-center h-full">
-            <Spinner color="gray" size="8" />
-          </div>
-        )}
-        {isError && 'OOOPS'}
-        {isSuccess && (
-          <>
-            <div className="w-full text-white rounded-sm drop-shadow-md bg-white">
-              <Title content="Major Leagues" styling="p-6" />
-
+      {/* <div className="w-1/3"> */}
+      {isLoading && (
+        <div className="flex justify-center items-center h-full">
+          <Spinner color="gray" size="8" />
+        </div>
+      )}
+      {isError && 'OOOPS'}
+      {isSuccess && (
+        <>
+          <div className="w-[520px] text-white rounded drop-shadow-sm bg-white rounded border-stroke border p-6">
+            <Title content="Major Leagues" styling="p-6" />
+            <div className="border border-stroke">
               {data.map((league: any, index: number) => (
                 <div
                   className={`flex items-center p-4 ${
@@ -98,15 +98,16 @@ const Major: React.FC<MajorProps> = (props) => {
                 </div>
               ))}
             </div>
+          </div>
 
-            <DialogComponent
-              isOpen={isDialogOpen}
-              closeModal={closeModal}
-              leagueDetails={data[leagueIndex]}
-            />
-          </>
-        )}
-      </div>
+          <DialogComponent
+            isOpen={isDialogOpen}
+            closeModal={closeModal}
+            leagueDetails={data[leagueIndex]}
+          />
+        </>
+      )}
+      {/* </div> */}
     </div>
   );
 };

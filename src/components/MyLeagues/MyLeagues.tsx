@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../redux/store';
 import {
@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 import Title from '../Shared/Title/Title';
 import CustomButton from '../CustomButton/CustomButton';
 import DeleteDialog from '../DeleteDialog/DeleteDialog';
+import ListContainer from '../Shared/ListContainer/ListContainer';
+import List from '../Shared/List/List';
 
 const MyLeagues: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -34,6 +36,7 @@ const MyLeagues: React.FC = () => {
   const openDialog = (index: number) => {
     setIsDialogOpen(true);
     setInd(index);
+    console.log(index);
   };
 
   const closeDialog = () => {
@@ -47,17 +50,18 @@ const MyLeagues: React.FC = () => {
         leagueName: data[ind],
       };
 
-      console.log(ind);
-
       deleteLeague(args);
     }
   };
 
-  const handleClick = () => {
-    handleDeleteLeague();
+  useEffect(() => {
     if (deletionSuccess) {
       closeDialog();
     }
+  }, [deletionSuccess]);
+
+  const handleClick = () => {
+    handleDeleteLeague();
   };
 
   const deleteDialogProps = {
@@ -75,28 +79,24 @@ const MyLeagues: React.FC = () => {
     <>
       {isLoading && (
         <div className="h-screen grid place-content-center bg-gray-200">
-          <Spinner color="gray" size="8" />
+          <Spinner color="primary" size="8" />
         </div>
       )}
 
       {isSuccess && (
-        <div className="py-8 flex flex-col items-center bg-gray-100 grow">
-          <div
-            className={`flex flex-col w-[520px] bg-white rounded border-stroke border ${
-              data.length ? '' : 'h-[500px]'
-            } `}
-          >
-            <Title content="My Leagues" styling="p-6" />
+        <div className="py-8 flex flex-col items-center bg-light-grey grow">
+          <ListContainer listLength={data.length}>
+            <>
+              <Title content="My Leagues" styling="pb-6" />
 
-            <div className="p-6 grow flex items-center">
-              <div className="flex justify-center items-center grow">
-                {data.length === 0 ? (
-                  <h1 className="text-2xl font-bold text-dark-grey w-96">
-                    You don’t have any league yet! go ahead and create your own
-                    right now.
-                  </h1>
-                ) : (
-                  <div className="w-full bg-white rounded-sm border border-stroke">
+              {data.length === 0 ? (
+                <h1 className="text-2xl font-bold text-dark-grey w-96">
+                  You don’t have any league yet! go ahead and create your own
+                  right now.
+                </h1>
+              ) : (
+                <List>
+                  <>
                     {data.map((league, index) => (
                       <div
                         key={index}
@@ -108,7 +108,9 @@ const MyLeagues: React.FC = () => {
                           <span className="text-sm text-gray-500">
                             league name
                           </span>
-                          <h1 className="grow text-lg  ">{league}</h1>
+                          <h1 className="grow text-lg text-dark-grey">
+                            {league}
+                          </h1>
                         </div>
 
                         <Link className="w-28" to={`/myleagues/${league}`}>
@@ -127,11 +129,11 @@ const MyLeagues: React.FC = () => {
                         <DeleteDialog {...deleteDialogProps} />
                       </div>
                     ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+                  </>
+                </List>
+              )}
+            </>
+          </ListContainer>
         </div>
       )}
     </>
