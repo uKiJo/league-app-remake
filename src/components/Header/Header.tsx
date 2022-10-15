@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
 import { signOut, UserInfo } from 'firebase/auth';
-import MenuDropDown from '../Menu/Menu-DropDown';
+import MenuDropDown from '../Shared/Menu/Menu-DropDown';
 import { UserProps } from '../../redux/features/user/userSlice';
 
 interface HeaderProps {
@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
   console.log(navbarOpen);
 
   return (
-    <div className="z-10 lg:flex bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-[#002B5B]">
+    <div className="z-10 lg:flex bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-primary">
       <div className="flex ">
         <Link className="p-3 text-white text-lg font-bold flex-grow" to="/">
           Logo

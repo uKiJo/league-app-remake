@@ -9,7 +9,7 @@ const ListItem: React.FC<ListItemProps> = ({ index, children }) => {
   return (
     <div
       className={`flex items-center p-4  ${
-        index % 2 === 0 ? 'bg-slate-50' : ''
+        index % 2 === 0 ? 'bg-indigo-50' : ''
       }`}
     >
       {children}

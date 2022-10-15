@@ -12,7 +12,7 @@ module.exports = {
         secondary_light: '#8FE3CF',
         stroke: '#D0D7DE',
         'light-grey': '#F4F4F2',
-        'medium-grey': '#BDBDBD',
+        'medium-grey': '#E8E8E8',
         'dark-grey': '#595959',
       },
     },

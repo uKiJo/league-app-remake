@@ -91,10 +91,12 @@ const MyLeagues: React.FC = () => {
               <Title content="My Leagues" styling="pb-6" />
 
               {data.length === 0 ? (
-                <h1 className="text-2xl font-bold text-dark-grey w-96">
-                  You don’t have any league yet! go ahead and create your own
-                  right now.
-                </h1>
+                <div className="flex grow items-center justify-center">
+                  <h1 className="text-2xl font-bold text-dark-grey w-96">
+                    You don’t have any league yet! go ahead and create your own
+                    right now.
+                  </h1>
+                </div>
               ) : (
                 <List>
                   <>

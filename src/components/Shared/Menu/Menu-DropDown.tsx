@@ -39,8 +39,10 @@ const MenuDropDown: React.FC<MenuProps> = ({ trigger, content }) => {
                   {({ active }) => (
                     <Link
                       to={`create/${item.toLocaleLowerCase()}`}
-                      className={`hover:bg-gray-50 rounded-lg ${active} ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block p-2`}
+                      className={`hover:bg-gray-50 rounded-lg ${
+                        active ? 'bg-gray-100 text-dark-grey' : 'text-gray-500'
+                      } 
+                      'block p-2 transition-colors`}
                     >
                       {item}
                     </Link>
@@ -48,18 +50,6 @@ const MenuDropDown: React.FC<MenuProps> = ({ trigger, content }) => {
                 </Menu.Item>
               );
             })}
-
-            {/* <Menu.Item>
-              {({ active }) => (
-                <Link
-                  to="create/major"
-                  className={`hover:bg-gray-50 rounded-lg ${active} ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block p-2`}
-                >
-                  Major Leagues
-                </Link>
-              )}
-            </Menu.Item> */}
           </div>
         </Menu.Items>
       </Transition>

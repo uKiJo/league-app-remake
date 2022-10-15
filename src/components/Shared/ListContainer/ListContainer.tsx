@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ListContainerProps {
   children: JSX.Element;
-  listLength: number;
+  listLength?: number;
 }
 
 const ListContainer: React.FC<ListContainerProps> = ({
@@ -12,7 +12,7 @@ const ListContainer: React.FC<ListContainerProps> = ({
   return (
     <div
       className={`flex flex-col p-6 w-[520px] bg-white rounded border-stroke border ${
-        listLength ? '' : 'h-[500px]'
+        listLength !== 0 ? '' : 'h-[500px]'
       } `}
     >
       {children}

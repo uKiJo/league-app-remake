@@ -20,6 +20,9 @@ import DialogComponent from '../Shared/Dialog';
 import { entry } from './utils';
 import Spinner from '../Shared/Spinner/Spinner';
 import Title from '../Shared/Title/Title';
+import ListContainer from '../Shared/ListContainer/ListContainer';
+import List from '../Shared/List/List';
+import ListItem from '../Shared/ListItem/ListItem';
 
 interface Team {
   name: string;
@@ -61,8 +64,7 @@ const Major: React.FC<MajorProps> = (props) => {
   };
 
   return (
-    <div className="flex justify-center p-6 grow">
-      {/* <div className="w-1/3"> */}
+    <>
       {isLoading && (
         <div className="flex justify-center items-center h-full">
           <Spinner color="gray" size="8" />
@@ -70,45 +72,45 @@ const Major: React.FC<MajorProps> = (props) => {
       )}
       {isError && 'OOOPS'}
       {isSuccess && (
-        <>
-          <div className="w-[520px] text-white rounded drop-shadow-sm bg-white rounded border-stroke border p-6">
-            <Title content="Major Leagues" styling="p-6" />
-            <div className="border border-stroke">
-              {data.map((league: any, index: number) => (
-                <div
-                  className={`flex items-center p-4 ${
-                    index % 2 === 0 ? 'bg-slate-50' : ''
-                  }`}
-                >
-                  <div className="w-20 flex justify-center  p-2">
-                    <img
-                      className="h-14"
-                      src={league.data.logo_path}
-                      alt="logo"
-                    />
-                  </div>
-                  <div className="text-xl font-bold text-primary pl-6 grow">
-                    {league.data.name}
-                  </div>
-                  <SimpleButton
-                    content="Create"
-                    styling="w-40 bg-secondary text-secondary_light hover:bg-secondary_light hover:text-secondary"
-                    onClick={openModal}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="py-8 flex flex-col items-center bg-light-grey grow">
+          <ListContainer listLength={1}>
+            <>
+              <Title content="Major Leagues" styling="pb-6" />
 
-          <DialogComponent
-            isOpen={isDialogOpen}
-            closeModal={closeModal}
-            leagueDetails={data[leagueIndex]}
-          />
-        </>
+              <List>
+                {data.map((league: any, index: number) => (
+                  <ListItem key={index} index={index}>
+                    <>
+                      <div className="w-20 flex justify-center p-2">
+                        <img
+                          className="h-14"
+                          src={league.data.logo_path}
+                          alt="logo"
+                        />
+                      </div>
+                      <div className="text-lg font-bold text-dark-grey pl-4 grow">
+                        {league.data.name}
+                      </div>
+                      <SimpleButton
+                        content="Create"
+                        styling="w-24 bg-primary text-white hover:bg-indigo-700"
+                        onClick={openModal}
+                      />
+                    </>
+                  </ListItem>
+                ))}
+              </List>
+
+              <DialogComponent
+                isOpen={isDialogOpen}
+                closeModal={closeModal}
+                leagueDetails={data[leagueIndex]}
+              />
+            </>
+          </ListContainer>
+        </div>
       )}
-      {/* </div> */}
-    </div>
+    </>
   );
 };
 
