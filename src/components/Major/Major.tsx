@@ -65,18 +65,20 @@ const Major: React.FC<MajorProps> = (props) => {
 
   return (
     <>
-      {isLoading && (
-        <div className="flex justify-center items-center h-full">
-          <Spinner color="gray" size="8" />
-        </div>
-      )}
       {isError && 'OOOPS'}
-      {isSuccess && (
-        <div className="py-8 flex flex-col items-center bg-light-grey grow">
-          <ListContainer listLength={1}>
-            <>
-              <Title content="Major Leagues" styling="pb-6" />
 
+      <div className="py-8 flex flex-col items-center bg-light-grey grow">
+        <ListContainer listLength={1}>
+          <>
+            <Title content="Major Leagues" styling="pb-6" />
+
+            {isLoading && (
+              <div className="flex grow items-center justify-center h-[500px]">
+                <Spinner color="blue" size="8" />
+              </div>
+            )}
+
+            {isSuccess && (
               <List>
                 {data.map((league: any, index: number) => (
                   <ListItem key={index} index={index}>
@@ -96,20 +98,19 @@ const Major: React.FC<MajorProps> = (props) => {
                         styling="w-24 bg-primary text-white hover:bg-indigo-700"
                         onClick={openModal}
                       />
+                      <DialogComponent
+                        isOpen={isDialogOpen}
+                        closeModal={closeModal}
+                        leagueDetails={data[leagueIndex]}
+                      />
                     </>
                   </ListItem>
                 ))}
               </List>
-
-              <DialogComponent
-                isOpen={isDialogOpen}
-                closeModal={closeModal}
-                leagueDetails={data[leagueIndex]}
-              />
-            </>
-          </ListContainer>
-        </div>
-      )}
+            )}
+          </>
+        </ListContainer>
+      </div>
     </>
   );
 };

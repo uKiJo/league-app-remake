@@ -127,8 +127,8 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
   console.log(isOnceOnly);
 
   return (
-    <div className="bg-slate-100 flex justify-center items-center p-6 grow">
-      <form onSubmit={handleSubmit} className="w-1/3">
+    <div className="bg-slate-100 flex justify-center p-8 grow">
+      <form onSubmit={handleSubmit}>
         {/* <div className="m-auto bg-white p-6 rounded border border-stroke "> */}
         <ListContainer>
           <>

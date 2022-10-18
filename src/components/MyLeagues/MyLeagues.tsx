@@ -78,64 +78,66 @@ const MyLeagues: React.FC = () => {
 
   return (
     <>
-      {isLoading && (
-        <div className="h-screen grid place-content-center bg-gray-200">
-          <Spinner color="primary" size="8" />
-        </div>
-      )}
+      <div className="py-8 flex flex-col items-center bg-light-grey grow">
+        <ListContainer listLength={data.length}>
+          <>
+            <Title content="My Leagues" styling="pb-6" />
 
-      {isSuccess && (
-        <div className="py-8 flex flex-col items-center bg-light-grey grow">
-          <ListContainer listLength={data.length}>
-            <>
-              <Title content="My Leagues" styling="pb-6" />
+            {isLoading && (
+              <div className="flex grow items-center justify-center">
+                <Spinner color="blue" size="8" />
+              </div>
+            )}
 
-              {data.length === 0 ? (
-                <div className="flex grow items-center justify-center">
-                  <h1 className="text-2xl font-bold text-dark-grey w-96">
-                    You don’t have any league yet! go ahead and create your own
-                    right now.
-                  </h1>
-                </div>
-              ) : (
-                <List>
-                  <>
-                    {data.map((league, index) => (
-                      <ListItem key={index} index={index}>
-                        <>
-                          <div className="ml-4 grow">
-                            <span className="text-sm text-gray-500">
-                              league name
-                            </span>
-                            <h1 className="grow text-lg text-dark-grey">
-                              {league}
-                            </h1>
-                          </div>
+            {isSuccess && (
+              <>
+                {data.length === 0 ? (
+                  <div className="flex grow items-center justify-center">
+                    <h1 className="text-2xl font-bold text-dark-grey w-96">
+                      You don’t have any league yet! go ahead and create your
+                      own right now.
+                    </h1>
+                  </div>
+                ) : (
+                  <List>
+                    <>
+                      {data.map((league, index) => (
+                        <ListItem key={index} index={index}>
+                          <>
+                            <div className="ml-4 grow">
+                              <span className="text-sm text-gray-500">
+                                league name
+                              </span>
+                              <h1 className="grow text-lg text-dark-grey">
+                                {league}
+                              </h1>
+                            </div>
 
-                          <Link className="w-28" to={`/myleagues/${league}`}>
-                            <SimpleButton
-                              content="Load"
-                              styling="w-24 bg-primary text-white"
+                            <Link className="w-28" to={`/myleagues/${league}`}>
+                              <SimpleButton
+                                content="Load"
+                                styling="w-24 bg-primary text-white"
+                              />
+                            </Link>
+
+                            <CustomButton
+                              children="Delete"
+                              type="button"
+                              styling="w-24 bg-red-500 text-white hover:contrast-75 transition-all"
+                              action={() => openDialog(index)}
                             />
-                          </Link>
-
-                          <CustomButton
-                            children="Delete"
-                            type="button"
-                            styling="w-24 bg-red-500 text-white hover:contrast-75 transition-all"
-                            action={() => openDialog(index)}
-                          />
-                          <DeleteDialog {...deleteDialogProps} />
-                        </>
-                      </ListItem>
-                    ))}
-                  </>
-                </List>
-              )}
-            </>
-          </ListContainer>
-        </div>
-      )}
+                            <DeleteDialog {...deleteDialogProps} />
+                          </>
+                        </ListItem>
+                      ))}
+                    </>
+                  </List>
+                )}
+              </>
+            )}
+          </>
+        </ListContainer>
+      </div>
     </>
   );
 };
