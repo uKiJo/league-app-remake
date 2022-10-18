@@ -8,11 +8,11 @@ interface TitleProps {
 
 const Title: React.FC<TitleProps> = ({ content, styling, icon }) => {
   return (
-    <div
+    <h1
       className={`${styling} w-full text-3xl text-center text-primary font-extrabold ${icon}`}
     >
       {content}
-    </div>
+    </h1>
   );
 };
 

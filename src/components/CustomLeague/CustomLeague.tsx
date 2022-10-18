@@ -22,6 +22,7 @@ import { RootState } from '../../redux/store';
 import { gsap } from 'gsap';
 import { useNavigate } from 'react-router-dom';
 import { useAddFixtureMutation } from '../../services/leagueApi';
+import ListContainer from '../Shared/ListContainer/ListContainer';
 
 interface CustomLeagueProps {}
 
@@ -126,47 +127,51 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
   console.log(isOnceOnly);
 
   return (
-    <div className="bg-slate-100 flex flex-col items-center p-6 grow">
+    <div className="bg-slate-100 flex justify-center items-center p-6 grow">
       <form onSubmit={handleSubmit} className="w-1/3">
-        <div className="m-auto bg-white p-6 rounded-sm drop-shadow-md">
-          <Title content="Create Custom League" styling="mb-6" />
-          <TextInput
-            label="League Name"
-            placeholder="League name"
-            handleChange={handleLeagueNameChange}
-          />
-          <div className="grid gap-6 grid-cols-2 mt-2 mb-6">
-            <div>
-              <NumberInput
-                handleChange={handleChange}
-                label="Number of teams"
-                value={`${teamNum}`}
-              />
-              <div ref={errorRef} className="mt-2">
-                {warning ? (
-                  <span className="text-red-500 pt-2">{warning}</span>
-                ) : null}
+        {/* <div className="m-auto bg-white p-6 rounded border border-stroke "> */}
+        <ListContainer>
+          <>
+            <Title content="Create Custom League" styling="mb-6" />
+            <TextInput
+              label="League Name"
+              placeholder="League name"
+              handleChange={handleLeagueNameChange}
+            />
+            <div className="grid gap-6 grid-cols-2 mt-2 mb-6">
+              <div>
+                <NumberInput
+                  handleChange={handleChange}
+                  label="Number of teams"
+                  value={`${teamNum}`}
+                />
+                <div ref={errorRef} className="mt-2">
+                  {warning ? (
+                    <span className="text-red-500 pt-2">{warning}</span>
+                  ) : null}
+                </div>
               </div>
+
+              <Select label="Meetings" handleChange={handleOptionChange} />
             </div>
 
-            <Select label="Meetings" handleChange={handleOptionChange} />
-          </div>
-
-          {inputs.map((_, index) => (
-            <TextInput
-              label={`Team ${index + 1}`}
-              placeholder="Team name"
-              handleChange={(event) => handleTeamsChange(index, event)}
+            {inputs.map((_, index) => (
+              <TextInput
+                label={`Team ${index + 1}`}
+                placeholder="Team name"
+                handleChange={(event) => handleTeamsChange(index, event)}
+              />
+            ))}
+            <CustomButtom
+              children="Generate"
+              loading={isLoading}
+              styling="w-full bg-primary text-white"
             />
-          ))}
-          <CustomButtom
-            children="Generate"
-            loading={isLoading}
-            styling="w-full bg-secondary text-secondary_light"
-          />
-          {isError && <div>Oops! something went wrong, please retry!</div>}
-          {isLoading && <div>mutating...</div>}
-        </div>
+            {isError && <div>Oops! something went wrong, please retry!</div>}
+            {isLoading && <div>mutating...</div>}
+          </>
+        </ListContainer>
+        {/* </div> */}
       </form>
     </div>
   );

@@ -17,6 +17,7 @@ import {
 import FormInput from '../FormInput/FormInput';
 import CustomButton from '../CustomButton/CustomButton';
 import { Link } from 'react-router-dom';
+import Title from '../Shared/Title/Title';
 
 interface SignInProps {
   email: string;
@@ -88,9 +89,10 @@ const SignIn: React.FC = () => {
     <div className="grid content-start mt-40">
       <div className="flex w-1/2 h-min  m-auto bg-white drop-shadow-md rounded ">
         <div className="grow p-12 self-center">
-          <h1 className="pb-5 text-3xl font-bold text-primary">
+          <h1 className="pb-12 text-3xl font-bold text-primary">
             Sign in to your account
           </h1>
+          {/* <Title content="Sign in to your account" styling="pb-12" /> */}
 
           <div>
             <form onSubmit={handleSubmit}>
@@ -117,7 +119,9 @@ const SignIn: React.FC = () => {
               />
             </form>
             <div className="mt-4">
-              <span className="pr-2">Don't have an account?</span>
+              <span className="pr-2 text-dark-grey">
+                Don't have an account?
+              </span>
               <Link className="text-primary" to="/signup">
                 Sign up
               </Link>

@@ -15,7 +15,7 @@ const TextInput: React.FC<TextInputProps> = ({
     <div className="mb-6">
       <label
         htmlFor="first_name"
-        className="block mb-2 text-sm font-medium text-gray-400"
+        className="block mb-2 text-sm font-medium text-dark-grey"
       >
         {label}
       </label>
@@ -23,7 +23,7 @@ const TextInput: React.FC<TextInputProps> = ({
         onChange={handleChange}
         type="text"
         id="first_name"
-        className="bg-medium-grey border-0 text-gray-400 text-sm rounded focus:border-primary block w-full p-2.5 "
+        className="bg-medium-grey border-0 text-dark-grey text-sm rounded focus:border-primary block w-full p-2.5 "
         // placeholder="League Name"
         {...rest}
         required

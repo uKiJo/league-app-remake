@@ -27,7 +27,7 @@ const FormInput: React.FC<FormInputProps> = ({
         onChange={handleChange}
         name={name}
         type={type}
-        className="bg-[#E8E8E8] h-[40px] w-full rounded px-2"
+        className="bg-medium-grey h-[40px] w-full rounded px-2"
         {...otherProps}
         placeholder=""
         required

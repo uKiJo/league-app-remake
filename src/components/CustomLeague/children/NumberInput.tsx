@@ -15,7 +15,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
     <div>
       <label
         htmlFor="visitors"
-        className="block mb-2 text-sm font-medium text-gray-500"
+        className="block mb-2 text-sm font-medium text-dark-grey"
       >
         {label}
       </label>
@@ -26,7 +26,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
         max="11"
         id="visitors"
         {...rest}
-        className="bg-slate-100 border-0 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        className="bg-medium-grey border-0 text-dark-grey text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         placeholder=""
         required
       />
