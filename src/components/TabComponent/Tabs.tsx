@@ -4,6 +4,9 @@ import { Tab } from '@headlessui/react';
 
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from '../Shared/ErrorFallback';
+import { motion } from 'framer-motion';
+
+import './Tabs.scss';
 
 interface TabsProps {
   categories: {
@@ -18,26 +21,40 @@ function classNames(...classes: string[]) {
 
 const Tabs: React.FC<TabsProps> = ({ categories }) => {
   return (
-    <div className="min-h-screen w-5/12 flex flex-col items-center px-2 py-16 sm:px-0">
+    <div className="min-h-screen w-full flex flex-col items-center px-2 sm:px-0">
       <Tab.Group>
-        <Tab.List className="flex w-96 space-x-1 rounded-xl bg-primary p-1">
-          {Object.keys(categories).map((category) => (
-            <Tab
-              key={category}
-              className={({ selected }) =>
-                classNames(
-                  'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-primary',
-                  'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none ',
-                  selected
-                    ? 'bg-white shadow'
-                    : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
-                )
-              }
-            >
-              {category}
-            </Tab>
-          ))}
-        </Tab.List>
+        <div className="w-full">
+          <Tab.List className="flex space-x-1 bg-medium-grey border-b border-stroke shadow">
+            {Object.keys(categories).map((category) => (
+              <>
+                <Tab
+                  key={category}
+                  onClick={() => console.log('tab clicked!')}
+                  className={({ selected }) =>
+                    classNames(
+                      'relative w-32 rounded-lg py-2.5 text-sm font-medium leading-5 text-dark-grey h-[60px]',
+                      'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none ',
+                      selected ? 'text-primary' : ''
+                    )
+                  }
+                >
+                  {({ selected }) => (
+                    <>
+                      {category}
+                      {selected && (
+                        <motion.div
+                          layoutId="underline"
+                          transition={spring}
+                          className="absolute bottom-0 bg-primary h-1 w-full"
+                        ></motion.div>
+                      )}
+                    </>
+                  )}
+                </Tab>
+              </>
+            ))}
+          </Tab.List>
+        </div>
         <Tab.Panels className="min-w-[70%] pt-4">
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             {Object.values(categories).map((posts, idx) => (
@@ -56,6 +73,12 @@ const Tabs: React.FC<TabsProps> = ({ categories }) => {
       </Tab.Group>
     </div>
   );
+};
+
+const spring = {
+  type: 'spring',
+  stiffness: 500,
+  damping: 30,
 };
 
 export default Tabs;
