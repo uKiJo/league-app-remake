@@ -12,7 +12,7 @@ function Homepage() {
     <div className="overflow-hidden bg grow flex justify-center ">
       <div className="flex w-1/2 h-96 mt-40">
         <div className="p-4 w-1/2">
-          <h1 className="text-secondary grow  text-6xl font-bold mb-8">
+          <h1 className="text-primary grow  text-6xl font-bold mb-8">
             Create your own football league.
           </h1>
           <p className="grow text-xl w-96  my-8">

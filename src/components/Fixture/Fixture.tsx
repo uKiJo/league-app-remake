@@ -27,6 +27,9 @@ import './Fixture.scss';
 import Title from '../Shared/Title/Title';
 
 import Select from '../Shared/Select';
+import ListContainer from '../Shared/ListContainer/ListContainer';
+import List from '../Shared/List/List';
+import ListItem from '../Shared/ListItem/ListItem';
 
 interface FixtureShape {
   homeTeam: {
@@ -204,33 +207,43 @@ const FixtureComponent = () => {
               setSelectDay={setSelectDay}
             />
           </div>
-          <div className="w-full">
-            <Title content="Fixture" styling="p-6" icon="icon" />
-            <div ref={FixRef}>
-              {data
-                .filter(
-                  (day) => `Day ${data.indexOf(day) + 1}` === `${selectDay}`
-                )
-                .map((day, ind) => (
-                  <div
-                    key={ind}
-                    className="rounded-b-sm bg-white drop-shadow-md mb-4 overflow-hidden"
-                  >
-                    <h2 className="font-bold text-center bg-primary text-white p-2">
-                      Day {data.indexOf(day) + 1}
-                    </h2>
-                    {day.map((game, id) => (
-                      <Game
-                        key={game.id}
-                        game={game}
-                        handleHome={handleHome}
-                        handleAway={handleAway}
-                      />
+
+          <ListContainer>
+            <>
+              <Title content="Fixture" styling="pb-6" icon="icon" />
+
+              <List>
+                <>
+                  {data
+                    .filter(
+                      (day) => `Day ${data.indexOf(day) + 1}` === `${selectDay}`
+                    )
+                    .map((day, ind) => (
+                      <div
+                        key={ind}
+                        className="rounded-b-sm bg-white drop-shadow-md overflow-hidden"
+                      >
+                        {/* <h2 className="font-bold text-center bg-primary text-white p-2">
+                          Day {data.indexOf(day) + 1}
+                        </h2> */}
+                        {day.map((game, id) => (
+                          <ListItem styling="p-2" index={id} key={id}>
+                            <>
+                              <Game
+                                key={game.id}
+                                game={game}
+                                handleHome={handleHome}
+                                handleAway={handleAway}
+                              />
+                            </>
+                          </ListItem>
+                        ))}
+                      </div>
                     ))}
-                  </div>
-                ))}
-            </div>
-          </div>
+                </>
+              </List>
+            </>
+          </ListContainer>
         </>
       )}
     </>

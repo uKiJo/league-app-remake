@@ -44,7 +44,7 @@ let Game: React.FC<GameProps> = ({ game, handleHome, handleAway }) => {
     <>
       <div className="w-full flex justify-center text-gray-800 flex p-2 border-b-2 border-gray-100 last:border-0">
         <div className="p-2 flex items-center justify-end flex-1">
-          <span className="p-2 w-30 text-sm font-bold">
+          <span className="p-2 w-30 text-sm text-dark-grey font-bold">
             {converted(homeTeam.name)}
           </span>
           {homeTeam.logo_path && (
@@ -52,27 +52,29 @@ let Game: React.FC<GameProps> = ({ game, handleHome, handleAway }) => {
           )}
         </div>
         <div className="flex items-center">
-          <input
-            className="w-8 h-6 p-2 text-slate-50 text-center bg-primary rounded-l-lg font-bold"
-            type="text"
-            onChange={(e) => handleHome(e, game)}
-            defaultValue={homeTeam.goal}
-          />
-          <div className="h-6 bg-primary text-white flex items-center font-bold">
-            -
+          <div className="flex">
+            <input
+              className="w-6 h-6 text-white text-center bg-primary rounded-l-lg font-bold"
+              type="text"
+              onChange={(e) => handleHome(e, game)}
+              defaultValue={homeTeam.goal}
+            />
+            <div className="h-6 bg-primary text-white flex items-center font-bold">
+              -
+            </div>
+            <input
+              className="w-6 h-6 text-white text-center bg-primary rounded-r-lg font-bold"
+              type="text"
+              onChange={(e) => handleAway(e, game)}
+              defaultValue={awayTeam.goal}
+            />
           </div>
-          <input
-            className="w-8 h-6 p-2 text-slate-50 text-center bg-primary rounded-r-lg font-bold"
-            type="text"
-            onChange={(e) => handleAway(e, game)}
-            defaultValue={awayTeam.goal}
-          />
         </div>
         <div className="p-2 flex items-center flex-1">
           {homeTeam.logo_path && (
             <img className="h-6" src={awayTeam.logo_path} alt="away-logo" />
           )}
-          <span className="p-2 w-30 text-sm font-bold">
+          <span className="p-2 w-30 text-sm text-dark-grey font-bold">
             {converted(awayTeam.name)}
           </span>
         </div>

@@ -81,7 +81,7 @@ const Major: React.FC<MajorProps> = (props) => {
             {isSuccess && (
               <List>
                 {data.map((league: any, index: number) => (
-                  <ListItem key={index} index={index}>
+                  <ListItem key={index} index={index} styling="p-4">
                     <>
                       <div className="w-20 flex justify-center p-2">
                         <img

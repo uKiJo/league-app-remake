@@ -102,7 +102,7 @@ const MyLeagues: React.FC = () => {
                   <List>
                     <>
                       {data.map((league, index) => (
-                        <ListItem key={index} index={index}>
+                        <ListItem key={index} index={index} styling="p-4">
                           <>
                             <div className="ml-4 grow">
                               <span className="text-sm text-gray-500">

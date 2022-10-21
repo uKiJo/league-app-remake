@@ -24,7 +24,7 @@ const Tabs: React.FC<TabsProps> = ({ categories }) => {
     <div className="min-h-screen w-full flex flex-col items-center px-2 sm:px-0">
       <Tab.Group>
         <div className="w-full">
-          <Tab.List className="flex space-x-1 bg-medium-grey border-b border-stroke shadow">
+          <Tab.List className="flex space-x-1 bg-white border-b border-stroke shadow">
             {Object.keys(categories).map((category) => (
               <>
                 <Tab
@@ -55,13 +55,13 @@ const Tabs: React.FC<TabsProps> = ({ categories }) => {
             ))}
           </Tab.List>
         </div>
-        <Tab.Panels className="min-w-[70%] pt-4">
+        <Tab.Panels className="min-w-[520px] pt-4">
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             {Object.values(categories).map((posts, idx) => (
               <Tab.Panel
                 key={idx}
                 className={classNames(
-                  ' rounded-xl p-3',
+                  'rounded-xl p-3',
                   'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none '
                 )}
               >

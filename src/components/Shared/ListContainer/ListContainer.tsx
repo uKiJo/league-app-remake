@@ -11,7 +11,7 @@ const ListContainer: React.FC<ListContainerProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col p-6 w-[520px] bg-white rounded border-stroke border ${
+      className={`flex flex-col p-6 w-[520px] bg-white shadow-md rounded border-stroke border ${
         listLength !== 0 ? '' : 'h-[500px]'
       } `}
     >

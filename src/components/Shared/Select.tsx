@@ -10,14 +10,14 @@ interface SelectProps {
 
 const Select: React.FC<SelectProps> = ({ items, selectDay, setSelectDay }) => {
   return (
-    <div className="top-16 w-72">
+    <div className="top-16">
       <Listbox value={selectDay} onChange={setSelectDay}>
         <div className="relative mt-1">
-          <Listbox.Button className="relative w-full cursor-default rounded-sm bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate">{selectDay}</span>
+          <Listbox.Button className="h-14 relative w-full cursor-default rounded border border-stroke bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <span className="block text-dark-grey truncate">{selectDay}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronDownIcon
-                className="h-5 w-5 text-gray-400"
+                className="h-5 w-5 text-dark-grey"
                 aria-hidden="true"
               />
             </span>
@@ -34,9 +34,7 @@ const Select: React.FC<SelectProps> = ({ items, selectDay, setSelectDay }) => {
                   key={personIdx}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active
-                        ? 'bg-secondary_light text-secondary'
-                        : 'text-gray-900'
+                      active ? 'bg-primary text-white' : 'text-dark-grey'
                     }`
                   }
                   value={person}
@@ -51,7 +49,7 @@ const Select: React.FC<SelectProps> = ({ items, selectDay, setSelectDay }) => {
                         {person}
                       </span>
                       {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-secondary">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-primary">
                           <CheckIcon className="h-5 w-5" aria-hidden="true" />
                         </span>
                       ) : null}
