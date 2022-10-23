@@ -130,7 +130,7 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
     <div className="bg-slate-100 flex justify-center p-8 grow">
       <form onSubmit={handleSubmit}>
         {/* <div className="m-auto bg-white p-6 rounded border border-stroke "> */}
-        <ListContainer>
+        <ListContainer styling="w-[520px]">
           <>
             <Title content="Create Custom League" styling="mb-6" />
             <TextInput

@@ -61,7 +61,7 @@ const Tabs: React.FC<TabsProps> = ({ categories }) => {
               <Tab.Panel
                 key={idx}
                 className={classNames(
-                  'rounded-xl p-3',
+                  'rounded-xl p-3 flex flex-col items-center',
                   'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none '
                 )}
               >

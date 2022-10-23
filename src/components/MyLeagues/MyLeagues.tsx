@@ -79,7 +79,7 @@ const MyLeagues: React.FC = () => {
   return (
     <>
       <div className="py-8 flex flex-col items-center bg-light-grey grow">
-        <ListContainer listLength={data.length}>
+        <ListContainer listLength={data.length} styling="w-[520px]">
           <>
             <Title content="My Leagues" styling="pb-6" />
 
@@ -102,7 +102,11 @@ const MyLeagues: React.FC = () => {
                   <List>
                     <>
                       {data.map((league, index) => (
-                        <ListItem key={index} index={index} styling="p-4">
+                        <ListItem
+                          key={index}
+                          index={data.length - 1 === index}
+                          styling="p-4"
+                        >
                           <>
                             <div className="ml-4 grow">
                               <span className="text-sm text-gray-500">

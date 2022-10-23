@@ -68,7 +68,7 @@ const Major: React.FC<MajorProps> = (props) => {
       {isError && 'OOOPS'}
 
       <div className="py-8 flex flex-col items-center bg-light-grey grow">
-        <ListContainer listLength={1}>
+        <ListContainer listLength={1} styling="w-[520px]">
           <>
             <Title content="Major Leagues" styling="pb-6" />
 
@@ -81,7 +81,11 @@ const Major: React.FC<MajorProps> = (props) => {
             {isSuccess && (
               <List>
                 {data.map((league: any, index: number) => (
-                  <ListItem key={index} index={index} styling="p-4">
+                  <ListItem
+                    key={index}
+                    index={data.length - 1 === index}
+                    styling="p-4"
+                  >
                     <>
                       <div className="w-20 flex justify-center p-2">
                         <img

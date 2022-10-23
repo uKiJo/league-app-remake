@@ -10,6 +10,7 @@ import Spinner from '../Shared/Spinner/Spinner';
 import Title from '../Shared/Title/Title';
 
 import './Table.scss';
+import ListContainer from '../Shared/ListContainer/ListContainer';
 
 interface TableProps {}
 
@@ -48,15 +49,12 @@ const Table: React.FC<TableProps> = (props) => {
 
       {isSuccess && (
         <>
-          <Title content="Table" styling="secondary" icon="tab-icon" />
-          <table
-            ref={tableRef}
-            className=" overflow-hidden bg-white w-full rounded-b-sm drop-shadow-md p-2"
-          >
-            <thead className="overflow-hidden font-bold">
-              <tr className="bg-primary text-white text-sm">
+          <ListContainer styling="w-9/12 items-center">
+            <>
+              <Title content="Table" styling="mb-4" />
+              <div className="grid grid-cols-12 gap-4 border border-stroke p-4 rounded mb-2 text-dark-grey text-sm bg-light-grey">
                 <th>Rank</th>
-                <th className="team">Team</th>
+                <th className="team col-span-3">Team</th>
                 <th>Played</th>
                 <th>Won</th>
                 <th>Drawn</th>
@@ -65,41 +63,34 @@ const Table: React.FC<TableProps> = (props) => {
                 <th>GA</th>
                 <th>GD</th>
                 <th>Points</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.table.map((team: any, index: number) => (
-                <tr
-                  className={`${
-                    index === 0 || index === 3 || index === 4 || index === 16
-                      ? 'border-b border-slate-300'
-                      : 'border-b border-slate-[#e8e8e8]'
-                  }
-                   text-sm`}
-                >
-                  <td>{data.table.indexOf(team) + 1}</td>
-                  <td className="team flex items-center">
-                    {team.logo_path && (
-                      <img
-                        className="pr-4 h-8"
-                        src={team.logo_path}
-                        alt="logo"
-                      />
-                    )}
-                    <span>{team.name}</span>
-                  </td>
-                  <td>{team.w + team.d + team.l}</td>
-                  <td>{team.w}</td>
-                  <td>{team.d}</td>
-                  <td>{team.l}</td>
-                  <td>{team.goals}</td>
-                  <td>{team.ga}</td>
-                  <td>{team.goals - team.ga}</td>
-                  <td className="font-bold">{team.points}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+              </div>
+              <div className="border border-stroke p-4 rounded text-sm">
+                {data.table.map((team: any, index: number) => (
+                  <div className="grid grid-cols-12 gap-4 place-items-center text-dark-grey">
+                    <td>{data.table.indexOf(team) + 1}</td>
+                    <td className="team flex items-center col-span-3">
+                      {team.logo_path && (
+                        <img
+                          className="pr-4 h-8"
+                          src={team.logo_path}
+                          alt="logo"
+                        />
+                      )}
+                      <span>{team.name}</span>
+                    </td>
+                    <td>{team.w + team.d + team.l}</td>
+                    <td>{team.w}</td>
+                    <td>{team.d}</td>
+                    <td>{team.l}</td>
+                    <td>{team.goals}</td>
+                    <td>{team.ga}</td>
+                    <td>{team.goals - team.ga}</td>
+                    <td className="font-bold text-black">{team.points}</td>
+                  </div>
+                ))}
+              </div>
+            </>
+          </ListContainer>
         </>
       )}
     </>

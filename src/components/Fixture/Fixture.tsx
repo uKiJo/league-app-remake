@@ -193,14 +193,14 @@ const FixtureComponent = () => {
   return (
     <>
       {isLoading && (
-        <div className="h-screen grid place-content-center bg-gray-200">
+        <div className="h-screen w-full grid place-content-center bg-gray-200">
           <Spinner color="gray" size="8" />
         </div>
       )}
 
       {isSuccess && tableFetched && (
         <>
-          <div className="pb-4">
+          <div className="pb-4 w-full">
             <Select
               items={data.map((day) => `Day ${data.indexOf(day) + 1}`)}
               selectDay={selectDay}
@@ -208,7 +208,7 @@ const FixtureComponent = () => {
             />
           </div>
 
-          <ListContainer>
+          <ListContainer styling="w-[520px]">
             <>
               <Title content="Fixture" styling="pb-6" icon="icon" />
 
@@ -223,11 +223,12 @@ const FixtureComponent = () => {
                         key={ind}
                         className="rounded-b-sm bg-white drop-shadow-md overflow-hidden"
                       >
-                        {/* <h2 className="font-bold text-center bg-primary text-white p-2">
-                          Day {data.indexOf(day) + 1}
-                        </h2> */}
                         {day.map((game, id) => (
-                          <ListItem styling="p-2" index={id} key={id}>
+                          <ListItem
+                            styling="p-2"
+                            index={day.length - 1 === id}
+                            key={id}
+                          >
                             <>
                               <Game
                                 key={game.id}

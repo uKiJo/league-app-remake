@@ -15,10 +15,6 @@ interface GameProps {
   ) => void;
 }
 
-interface Team {
-  name: string;
-}
-
 interface FixtureShape {
   homeTeam: {
     name: string;
@@ -42,7 +38,7 @@ let Game: React.FC<GameProps> = ({ game, handleHome, handleAway }) => {
 
   return (
     <>
-      <div className="w-full flex justify-center text-gray-800 flex p-2 border-b-2 border-gray-100 last:border-0">
+      <div className="w-full flex justify-center text-gray-800 flex border-b-2 border-gray-100 last:border-0">
         <div className="p-2 flex items-center justify-end flex-1">
           <span className="p-2 w-30 text-sm text-dark-grey font-bold">
             {converted(homeTeam.name)}
