@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import gsap from 'gsap';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { RootState } from '../../redux/store';
 import {
@@ -53,6 +54,13 @@ const FixtureComponent = () => {
   const [selectDay, setSelectDay] = useState('Day 1');
   const [homeScore, setHomeScore] = useState<string[]>([]);
   const [awayScore, setAwayScore] = useState<string[]>([]);
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(!show);
+    }, 2000);
+  }, []);
 
   const param = useParams();
   const league = param.leagueId;
@@ -191,7 +199,7 @@ const FixtureComponent = () => {
 
   console.log(isSuccess, tableFetched);
   return (
-    <>
+    <div>
       {isLoading && (
         <div className="h-screen w-full grid place-content-center bg-gray-200">
           <Spinner color="gray" size="8" />
@@ -199,7 +207,7 @@ const FixtureComponent = () => {
       )}
 
       {isSuccess && tableFetched && (
-        <>
+        <div>
           <div className="pb-4 w-full">
             <Select
               items={data.map((day) => `Day ${data.indexOf(day) + 1}`)}
@@ -245,9 +253,9 @@ const FixtureComponent = () => {
               </List>
             </>
           </ListContainer>
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

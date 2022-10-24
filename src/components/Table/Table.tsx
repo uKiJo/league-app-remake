@@ -49,12 +49,12 @@ const Table: React.FC<TableProps> = (props) => {
 
       {isSuccess && (
         <>
-          <ListContainer styling="w-9/12 items-center">
+          <ListContainer styling="w-full items-center">
             <>
               <Title content="Table" styling="mb-4" />
               <div className="grid grid-cols-12 gap-4 border border-stroke p-4 rounded mb-2 text-dark-grey text-sm bg-light-grey">
                 <th>Rank</th>
-                <th className="team col-span-3">Team</th>
+                <th className="team col-span-3 text-start">Team</th>
                 <th>Played</th>
                 <th>Won</th>
                 <th>Drawn</th>
@@ -66,8 +66,8 @@ const Table: React.FC<TableProps> = (props) => {
               </div>
               <div className="border border-stroke p-4 rounded text-sm">
                 {data.table.map((team: any, index: number) => (
-                  <div className="grid grid-cols-12 gap-4 place-items-center text-dark-grey">
-                    <td>{data.table.indexOf(team) + 1}</td>
+                  <div className="grid grid-cols-12 gap-4 place-items-center text-dark-grey border-b border-slate-200">
+                    <td className="pl-0">{data.table.indexOf(team) + 1}</td>
                     <td className="team flex items-center col-span-3">
                       {team.logo_path && (
                         <img

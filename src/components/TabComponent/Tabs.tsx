@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 
 import { Tab } from '@headlessui/react';
 
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from '../Shared/ErrorFallback';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import './Tabs.scss';
 
@@ -20,9 +20,19 @@ function classNames(...classes: string[]) {
 }
 
 const Tabs: React.FC<TabsProps> = ({ categories }) => {
+  const [selectedIndex1, setSelectedIndex] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState(0);
+  console.log(previousIndex);
+  console.log(selectedIndex1);
   return (
     <div className="min-h-screen w-full flex flex-col items-center px-2 sm:px-0">
-      <Tab.Group>
+      <Tab.Group
+        selectedIndex={selectedIndex1}
+        onChange={(index) => {
+          setPreviousIndex(selectedIndex1);
+          setSelectedIndex(index);
+        }}
+      >
         <div className="w-full">
           <Tab.List className="flex space-x-1 bg-white border-b border-stroke shadow">
             {Object.keys(categories).map((category) => (
@@ -61,11 +71,23 @@ const Tabs: React.FC<TabsProps> = ({ categories }) => {
               <Tab.Panel
                 key={idx}
                 className={classNames(
-                  'rounded-xl p-3 flex flex-col items-center',
+                  'rounded-xl p-3 flex items-center',
                   'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none '
                 )}
               >
-                {posts.map((post) => post.component)}
+                <AnimatePresence>
+                  {posts.map((post, id) => (
+                    <motion.div
+                      key="fixture"
+                      initial={{ y: 10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -10, opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {post.component}
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </Tab.Panel>
             ))}
           </ErrorBoundary>

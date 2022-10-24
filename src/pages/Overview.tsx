@@ -11,14 +11,18 @@ const Overview: React.FC<OverviewProps> = (props) => {
     Fixture: [
       {
         component: <FixtureComponent />,
+        id: 'Fixture',
       },
     ],
     Table: [
       {
         component: <Table />,
+        id: 'Table',
       },
     ],
   });
+
+  // let categoriess = [<FixtureComponent />, <Table />];
 
   return (
     <div className="flex w-full flex-col items-center justify-center bg-slate-100">
