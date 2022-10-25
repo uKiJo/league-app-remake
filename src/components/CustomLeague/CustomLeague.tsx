@@ -9,6 +9,8 @@ import React, {
 import { Fixture } from '../../utils/Fixture';
 import { Table } from '../../utils/Table';
 
+import { LayoutGroup, motion } from 'framer-motion';
+
 import { useSelector } from 'react-redux';
 
 import NumberInput from './children/NumberInput';
@@ -23,6 +25,7 @@ import { gsap } from 'gsap';
 import { useNavigate } from 'react-router-dom';
 import { useAddFixtureMutation } from '../../services/leagueApi';
 import ListContainer from '../Shared/ListContainer/ListContainer';
+import { AnimatePresence } from 'framer-motion';
 
 interface CustomLeagueProps {}
 
@@ -124,8 +127,6 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
     console.log(warning);
   }, [teamNum, teams, warning]);
 
-  console.log(isOnceOnly);
-
   return (
     <div className="bg-slate-100 flex justify-center p-8 grow">
       <form onSubmit={handleSubmit}>
@@ -155,17 +156,28 @@ const CustomLeague: React.FC<CustomLeagueProps> = (props) => {
               <Select label="Meetings" handleChange={handleOptionChange} />
             </div>
 
-            {inputs.map((_, index) => (
-              <TextInput
-                label={`Team ${index + 1}`}
-                placeholder="Team name"
-                handleChange={(event) => handleTeamsChange(index, event)}
-              />
-            ))}
+            <AnimatePresence>
+              {inputs.map((_, index) => (
+                <motion.div
+                  key={index}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  initial={{ opacity: 0, height: 0 }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <TextInput
+                    key={index}
+                    label={`Team ${index + 1}`}
+                    placeholder="Team name"
+                    handleChange={(event) => handleTeamsChange(index, event)}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
             <CustomButtom
               children="Generate"
               loading={isLoading}
-              styling="w-full bg-primary text-white"
+              styling="w-full bg-primary text-white z-10"
             />
             {isError && <div>Oops! something went wrong, please retry!</div>}
             {isLoading && <div>mutating...</div>}

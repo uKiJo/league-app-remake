@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import { motion } from 'framer-motion';
 
 interface SelectProps {
   items: string[];
@@ -10,7 +11,7 @@ interface SelectProps {
 
 const Select: React.FC<SelectProps> = ({ items, selectDay, setSelectDay }) => {
   return (
-    <div className="top-16">
+    <motion.div layout className="top-16">
       <Listbox value={selectDay} onChange={setSelectDay}>
         <div className="relative mt-1">
           <Listbox.Button className="h-14 relative w-full cursor-default rounded border border-stroke bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -61,7 +62,7 @@ const Select: React.FC<SelectProps> = ({ items, selectDay, setSelectDay }) => {
           </Transition>
         </div>
       </Listbox>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { MouseEvent } from 'react';
 
 import { ReactComponent as Spinner } from './Spinner.svg';
+import { motion } from 'framer-motion';
 
 interface CustomButtonProps {
   loading?: boolean;
@@ -18,13 +19,14 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   action,
 }) => {
   return (
-    <button
+    <motion.button
+      layout
       type={type}
       className={`flex justify-center items-center p-2 rounded font-medium h-[40px] transition-colors ${styling}`}
       onClick={action}
     >
       {loading ? <Spinner /> : children}
-    </button>
+    </motion.button>
   );
 };
 

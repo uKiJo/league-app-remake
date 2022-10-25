@@ -199,9 +199,9 @@ const FixtureComponent = () => {
 
   console.log(isSuccess, tableFetched);
   return (
-    <div>
+    <>
       {isLoading && (
-        <div className="h-screen w-full grid place-content-center bg-gray-200">
+        <div className="h-screen w-[520px] grid place-content-center bg-gray-200">
           <Spinner color="gray" size="8" />
         </div>
       )}
@@ -255,7 +255,7 @@ const FixtureComponent = () => {
           </ListContainer>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
