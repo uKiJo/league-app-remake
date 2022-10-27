@@ -41,22 +41,36 @@ export class TableUpdater {
       const awayDraw = score[0] === score[1] ? 1 : 0;
 
       const homeGameStats = [
-        homePts,
-        goalFor,
-        goalA,
-        homeWin,
-        homeDraw,
-        homeLoss,
-        homePts + (goalFor - goalA) * 0.1 + goalFor * 0.01,
+        `h${homePts}`,
+        `h${goalFor}`,
+        `h${goalA}`,
+        `h${homeWin}`,
+        `h${homeDraw}`,
+        `h${homeLoss}`,
+        `h${homePts + (goalFor - goalA) * 0.1 + goalFor * 0.01}`,
+        // homePts,
+        // goalFor,
+        // goalA,
+        // homeWin,
+        // homeDraw,
+        // homeLoss,
+        // homePts + (goalFor - goalA) * 0.1 + goalFor * 0.01,
       ];
       const awayGameStats = [
-        awayPts,
-        goalA,
-        goalFor,
-        awayWin,
-        awayDraw,
-        awayLoss,
-        awayPts + (goalA - goalFor) * 0.1 + goalA * 0.01,
+        `a${awayPts}`,
+        `a${goalA}`,
+        `a${goalFor}`,
+        `a${awayWin}`,
+        `a${awayDraw}`,
+        `a${awayLoss}`,
+        `a${awayPts + (goalA - goalFor) * 0.1 + goalA * 0.01}`,
+        // awayPts,
+        // goalA,
+        // goalFor,
+        // awayWin,
+        // awayDraw,
+        // awayLoss,
+        // awayPts + (goalA - goalFor) * 0.1 + goalA * 0.01,
       ];
 
       return [homeGameStats, awayGameStats];
@@ -76,7 +90,7 @@ export class TableUpdater {
   }
 
   updatePropArray(table: any[], dayIdx: number, res: string) {
-    // debugger;
+    debugger;
     const TableProperties = [
       'pointsArr',
       'goalsArr',
@@ -124,7 +138,11 @@ export class TableUpdater {
 
     props.forEach((element, index) => {
       obj[element] = stats[index];
-      obj[`${element}`.slice(0, -3)] = this.reduceProp(stats[index]);
+      obj[`${element}`.slice(0, -3)] = [
+        this.filterAll(stats[index]),
+        this.filter(stats[index], 'h'),
+        this.filter(stats[index], 'a'),
+      ];
     });
 
     return obj;
@@ -143,5 +161,23 @@ export class TableUpdater {
 
   reduceProp(prop: number[]) {
     return prop.reduce(this.reducer, 0);
+  }
+
+  filter = (arr: any[], filter: string) => {
+    return arr
+      .filter((el) => typeof el === 'string' && el.startsWith(filter))
+      .map((el) => this.getNumber(el))
+      .reduce((prev, val) => prev + val, 0);
+  };
+
+  filterAll = (arr: any[]) => {
+    return arr
+      .filter((el) => typeof el === 'string')
+      .map((el) => this.getNumber(el))
+      .reduce((prev, val) => prev + val, 0);
+  };
+
+  getNumber(element: string) {
+    return Number(element.substring(1));
   }
 }
