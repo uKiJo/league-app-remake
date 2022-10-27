@@ -47,7 +47,7 @@ export class Table {
     TableProperties.map((prop) => {
       return /Arr/.test(prop)
         ? (obj = { ...obj, [`${prop}`]: Array(days).fill(0) })
-        : (obj = { ...obj, [`${prop}`]: 0 });
+        : (obj = { ...obj, [`${prop}`]: [0, 0, 0] });
     });
 
     return {
